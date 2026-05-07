@@ -579,7 +579,7 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   margin-bottom: 18px;
   text-align: left;
 }
-.booking-row { display: flex; flex-direction: column; gap: 6px; }
+.booking-row { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .booking-label {
   font-family: var(--mono);
   font-size: 10px;
@@ -597,7 +597,32 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   padding: 12px 14px;
   border-radius: 10px;
   width: 100%;
+  min-width: 0;            /* prevent intrinsic min-content from blowing out */
+  max-width: 100%;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
 }
+
+/* iOS Safari sizes type=date by its content; force it to behave like text */
+.booking input[type="date"] {
+  -webkit-min-logical-width: 0;
+  min-height: 46px;        /* match text inputs so heights stay consistent */
+  text-align: left;
+}
+
+/* keep the native picker indicator from forcing extra width on WebKit */
+.booking input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  min-width: 0;
+}
+.booking input[type="date"]::-webkit-calendar-picker-indicator {
+  margin-left: auto;
+  filter: invert(1) opacity(0.6);
+  cursor: pointer;
+}
+
 .booking input:focus { outline: none; border-color: var(--accent); }
 .booking-pkg {
   border: none;
