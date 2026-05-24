@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -10,745 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-<style>
-/* =====================================================================
-   1. DESIGN TOKENS  —  retheme the whole site from here
-   ===================================================================== */
-:root {
-  /* Palette */
-  --bg:        #0a0a0a;   /* page background */
-  --bg-2:      #141414;   /* card / input background */
-  --line:      #2a2a2a;   /* hairline borders */
-  --line-2:    #3a3a3a;   /* slightly stronger borders */
-  --fg:        #f5f5f5;   /* primary text */
-  --muted:     #9a9a9a;   /* secondary text */
-  --dim:       #666;      /* tertiary text */
-  --accent:    #4ade80;   /* signature green */
-  --accent-dim:#166534;   /* darker green (kept for theming) */
-
-  /* Type stack */
-  --display: "Bebas Neue", Impact, "Arial Narrow Bold", sans-serif;
-  --body:    "Inter", -apple-system, system-ui, sans-serif;
-  --mono:    "JetBrains Mono", ui-monospace, Menlo, monospace;
-}
-
-/* =====================================================================
-   2. RESET & BASE
-   ===================================================================== */
-* { box-sizing: border-box; }
-html, body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--fg);
-}
-body {
-  font-family: var(--body);
-  font-size: 15px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-img, svg { display: block; max-width: 100%; }
-
-/* sr-only utility */
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-
-/* =====================================================================
-   3. WIREFRAME CHROME
-   Annotation pill tags + faint vertical column-grid overlay.
-   The Tweaks panel can hide annotations via a runtime stylesheet.
-   ===================================================================== */
-.anno {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  color: var(--dim);
-  text-transform: uppercase;
-}
-.anno-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
-  border: 1px dashed var(--line-2);
-  border-radius: 999px;
-  color: var(--muted);
-  background: rgba(255,255,255,0.02);
-}
-.anno-tag::before {
-  content: "";
-  width: 5px; height: 5px;
-  border-radius: 999px;
-  background: var(--accent);
-}
-
-/* faint 12-col grid overlay (decorative scaffolding) */
-.wf-grid {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,0.015) 1px, transparent 1px);
-  background-size: 8.333% 100%;
-}
-
-/* =====================================================================
-   4. TOP BAR  —  fixed header (brand + sound toggle + book CTA)
-   ===================================================================== */
-.topbar {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 20px;
-  background: linear-gradient(to bottom, rgba(10,10,10,0.85), rgba(10,10,10,0));
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-.brand { display: flex; align-items: center; gap: 10px; }
-.brand-mark {
-  height: 32px;
-  width: auto;
-  display: block;
-  object-fit: contain;
-}
-.brand-name {
-  font-family: var(--display);
-  font-size: 18px;
-  letter-spacing: 0.08em;
-  line-height: 1;
-}
-.brand-name span { color: var(--accent); }
-
-.topbar-actions { display: flex; align-items: center; gap: 8px; }
-.icon-btn {
-  display: inline-grid;
-  place-items: center;
-  width: 32px; height: 32px;
-  border: 1px solid var(--line-2);
-  background: transparent;
-  border-radius: 999px;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 0;
-  transition: border-color 0.2s, color 0.2s;
-}
-.icon-btn:hover { border-color: var(--accent); color: var(--accent); }
-.icon-btn svg { width: 14px; height: 14px; }
-
-.topbar-cta {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  border: 1px solid var(--line-2);
-  padding: 6px 10px;
-  border-radius: 999px;
-  text-decoration: none;
-}
-
-/* =====================================================================
-   5. SCROLL PROGRESS RAIL  —  one dot per beat (right edge)
-   ===================================================================== */
-.rail {
-  position: fixed;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 40;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-.rail-dot {
-  width: 8px; height: 8px;
-  border-radius: 999px;
-  background: var(--line-2);
-  transition: background 0.3s, transform 0.3s;
-}
-.rail-dot.is-active { background: var(--accent); transform: scale(1.4); }
-.rail-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--dim);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-top: 6px;
-}
-
-/* =====================================================================
-   6. HERO  (Beat 0)  —  full-viewport title screen
-   ===================================================================== */
-.hero {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 80px 24px 40px;
-  text-align: center;
-  position: relative;
-}
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-.hero-eyebrow::before, .hero-eyebrow::after {
-  content: "—";
-  margin: 0 10px;
-  color: var(--dim);
-}
-.hero-title {
-  font-family: var(--display);
-  font-size: clamp(56px, 18vw, 180px);
-  line-height: 0.85;
-  letter-spacing: 0.01em;
-  margin: 0;
-}
-.hero-title .accent { color: var(--accent); }
-.hero-sub {
-  margin-top: 18px;
-  color: var(--muted);
-  font-size: 14px;
-  max-width: 32ch;
-}
-.hero-scroll-cue {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-}
-.hero-scroll-cue .line {
-  width: 1px; height: 32px;
-  background: linear-gradient(to bottom, transparent, var(--accent));
-}
-.hero-scroll-cue .label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-/* =====================================================================
-   7. PINNED SCROLL STAGE  —  shared layout for all scroll-driven beats
-   - .track is a tall scroll-track; longer track = beat lasts longer.
-   - .pin sticks the visual to the viewport while the track scrolls past.
-   - body.mode-smooth (Tweaks panel) drops sticky behavior so beats
-     scroll naturally past the viewport.
-   ===================================================================== */
-.stage { position: relative; }
-.track {
-  position: relative;
-  height: 160vh;             /* mobile-first; desktop overrides below */
-}
-.pin {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-}
-body.mode-smooth .track { height: auto; min-height: 100svh; }
-body.mode-smooth .pin   { position: relative; height: 100svh; }
-
-/* =====================================================================
-   8. BEAT 1 — DSLR ZOOM
-   Scroll-scrubbed transforms applied via JS to .dslr-stack.
-   See updateDslr() in <script>; tweak phase boundaries there.
-   ===================================================================== */
-.beat-dslr .scene {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  background: radial-gradient(ellipse at 50% 56%, #141414 0%, #0a0a0a 60%, #050505 100%);
-}
-.dslr-stack {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(140vw, 720px);
-  aspect-ratio: 16 / 10;
-  transform: translate(-50%, -50%);
-  will-change: transform, filter;
-  transform-origin: 51% 56%;   /* lens center on the source photo */
-}
-.dslr-img,
-.dslr-lens-img,
-.dslr-iris,
-.dslr-flare {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  user-select: none;
-  pointer-events: none;
-}
-.dslr-img { object-fit: contain; object-position: center; }
-
-/* lens close-up pinned over the lens region of the body image */
-.dslr-lens-img {
-  object-fit: contain;
-  width: 38%; height: 72%;
-  top: 14%; left: 32%;
-  inset: auto;
-  opacity: 0;
-  will-change: opacity, transform;
-}
-/* aperture blades, sit over the lens, rotate slowly */
-.dslr-iris {
-  width: 38%; height: 72%;
-  top: 14%; left: 32%;
-  inset: auto;
-  transform-origin: 50% 50%;
-  opacity: 0;
-  mix-blend-mode: multiply;
-}
-/* cyan rim ring around the lens for the climactic flash */
-.dslr-flare {
-  width: 38%; height: 72%;
-  top: 14%; left: 32%;
-  inset: auto;
-  border-radius: 999px;
-  box-shadow:
-    0 0 0 2px rgba(74, 222, 128, 0),
-    0 0 60px 10px rgba(74, 222, 128, 0);
-  opacity: 0;
-  transition: none;
-}
-.dslr-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 56%, rgba(74, 222, 128, 0) 0%, transparent 50%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.1s linear;
-}
-.dslr-vignette {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
-  opacity: 0.4;
-}
-.beat-dslr .dslr-anno {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-}
-
-/* =====================================================================
-   9. BEATS 2–4 — GEAR CARDS  (stills, POV, full broadcast)
-   - .gear-card.from-right / .from-left  : slide direction.
-   - .gear-card.text-right               : on desktop, copy lands right.
-   - --p (0→1) is set by JS based on track progress (drives translate).
-   - Desktop layout: photo + copy in row 1, samples row 2 full-width.
-   ===================================================================== */
-.gear-beat .scene {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-}
-.gear-rail {
-  position: absolute;
-  top: 50%;
-  left: 0; right: 0;
-  transform: translateY(-50%);
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--line-2), transparent);
-}
-
-.gear-card {
-  --p: 0;                    /* 0 = offscreen, 1 = centered (set by JS) */
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 22px;
-  align-items: center;
-  width: min(92vw, 980px);
-  padding: 0 16px;
-}
-.gear-card.from-right { transform: translate3d(calc((1 - var(--p)) * 60vw), 0, 0); }
-.gear-card.from-left  { transform: translate3d(calc((var(--p) - 1) * 60vw), 0, 0); }
-
-/* main photo container */
-.gear-visual {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  border: 1.5px dashed var(--line-2);
-  border-radius: 14px;
-  background:
-    repeating-linear-gradient(135deg,
-      rgba(255,255,255,0.02) 0 8px,
-      transparent 8px 16px);
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-}
-.gear-visual .gear-photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-.gear-visual .placeholder-tag {
-  position: absolute;
-  top: 12px; left: 12px;
-}
-
-/* copy block (kicker + headline + sub) */
-.gear-copy { position: relative; text-align: left; }
-/* corner field-line motif behind the headline (bracket marker) */
-.gear-copy::before {
-  content: "";
-  position: absolute;
-  top: -10px; left: -10px;
-  width: 64px; height: 64px;
-  border-top: 2px solid var(--accent);
-  border-left: 2px solid var(--accent);
-  opacity: 0.35;
-  pointer-events: none;
-}
-.gear-card.text-right .gear-copy::before {
-  left: auto; right: -10px;
-  border-left: none;
-  border-right: 2px solid var(--accent);
-}
-.gear-kicker {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-.gear-headline {
-  font-family: var(--display);
-  font-size: clamp(40px, 9vw, 96px);
-  line-height: 0.9;
-  letter-spacing: 0.01em;
-  margin: 0;
-}
-.gear-headline .num { color: var(--accent); }
-.gear-sub {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 14px;
-  max-width: 36ch;
-}
-
-/* sample-thumbnails strip — fades in once the card "locks" centered */
-.samples {
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s;
-}
-.gear-card.is-locked .samples { opacity: 1; transform: translateY(0); }
-.sample {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  height: auto;
-  border-radius: 8px;
-  border: 1px dashed var(--line-2);
-  background:
-    repeating-linear-gradient(45deg,
-      rgba(255,255,255,0.03) 0 6px,
-      transparent 6px 12px),
-    var(--bg-2);
-  display: grid;
-  place-items: center;
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--dim);
-  letter-spacing: 0.1em;
-}
-.sample-photo {
-  border: 1px solid var(--line-2);
-  background: var(--bg-2);
-  object-fit: cover;
-  object-position: center;
-}
-
-/* =====================================================================
-   10. CTA + BOOKING FORM
-   Submit prefills a WhatsApp message via wa.me deep link.
-   Update the phone number in <script> below — search `const phone`.
-   ===================================================================== */
-.cta {
-  min-height: 100svh;
-  padding: 80px 24px 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-top: 1px solid var(--line);
-}
-.cta-eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--accent);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-.cta-title {
-  font-family: var(--display);
-  font-size: clamp(48px, 12vw, 120px);
-  line-height: 0.9;
-  margin: 0 0 8px;
-}
-.cta-sub {
-  color: var(--muted);
-  margin: 0 0 32px;
-  max-width: 36ch;
-}
-.cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 18px 28px;
-  background: var(--accent);
-  color: #001016;
-  font-family: var(--display);
-  font-size: 22px;
-  letter-spacing: 0.08em;
-  border-radius: 999px;
-  text-decoration: none;
-  border: 1px solid var(--accent);
-  transition: transform 0.2s;
-}
-.cta-btn:hover { transform: translateY(-2px); }
-.cta-btn .wa-icon {
-  width: 22px; height: 22px;
-  border: 2px solid #001016;
-  border-radius: 999px;
-  position: relative;
-}
-.cta-btn .wa-icon::after {
-  content: "";
-  position: absolute;
-  bottom: -2px; left: 0;
-  width: 6px; height: 6px;
-  background: #001016;
-  transform: rotate(45deg);
-}
-.cta-secondary {
-  margin-top: 18px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--muted);
-}
-
-/* booking form */
-.booking {
-  width: 100%;
-  max-width: 420px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-bottom: 18px;
-  text-align: left;
-}
-.booking-row { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.booking-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.booking input[type="date"],
-.booking input[type="text"] {
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  color: var(--fg);
-  font-family: var(--body);
-  font-size: 15px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  width: 100%;
-  min-width: 0;            /* prevent intrinsic min-content from blowing out */
-  max-width: 100%;
-  box-sizing: border-box;
-  -webkit-appearance: none;
-  appearance: none;
-  display: block;
-}
-
-/* iOS Safari sizes type=date by its content; force it to behave like text */
-.booking input[type="date"] {
-  -webkit-min-logical-width: 0;
-  min-height: 46px;        /* match text inputs so heights stay consistent */
-  text-align: left;
-}
-
-/* keep the native picker indicator from forcing extra width on WebKit */
-.booking input[type="date"]::-webkit-date-and-time-value {
-  text-align: left;
-  min-width: 0;
-}
-.booking input[type="date"]::-webkit-calendar-picker-indicator {
-  margin-left: auto;
-  filter: invert(1) opacity(0.6);
-  cursor: pointer;
-}
-
-.booking input:focus { outline: none; border-color: var(--accent); }
-.booking-pkg {
-  border: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
-.booking-pkg legend { display: contents; }
-.booking-pkg > legend { display: block; margin-bottom: 6px; }
-.booking-pkg label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  padding: 10px 6px;
-  border-radius: 8px;
-  font-size: 12px;
-  cursor: pointer;
-  text-align: center;
-}
-.booking-pkg input { accent-color: var(--accent); }
-.booking-pkg .pkg-price {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.04em;
-}
-.booking-pkg label:has(input:checked) {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.booking-pkg label:has(input:checked) .pkg-price { color: var(--accent); }
-
-/* live total row */
-.booking-total {
-  flex-direction: row !important;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 14px;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-}
-.booking-total-value {
-  font-family: var(--display);
-  font-size: 22px;
-  letter-spacing: 0.04em;
-  color: var(--accent);
-}
-.booking .cta-btn {
-  width: 100%;
-  justify-content: center;
-  margin-top: 4px;
-}
-
-/* =====================================================================
-   11. FOOTER
-   ===================================================================== */
-.footer {
-  padding: 24px;
-  border-top: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  color: var(--dim);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-.footer-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-.footer-row .sep { opacity: 0.5; }
-.footer-handles a { color: var(--muted); text-decoration: none; }
-.footer-handles a:hover { color: var(--accent); }
-.footer-meta { opacity: 0.7; }
-
-/* =====================================================================
-   12. RESPONSIVE OVERRIDES (≥760px)
-   Tweak the breakpoint here if you need a wider mobile band.
-   ===================================================================== */
-@media (min-width: 760px) {
-  body { font-size: 16px; }
-
-  /* slow each beat down on desktop (more pixels of scroll per beat) */
-  .track            { height: 220vh; }
-  [data-dslr-track] { height: 320vh; }
-
-  .dslr-stack { width: min(92vw, 720px); }
-
-  /* gear cards: photo + copy side by side, samples full-width below */
-  .gear-card {
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-  }
-  .gear-card.text-right .gear-copy   { order: 2; text-align: right; }
-  .gear-card.text-right .gear-visual { order: 1; }
-  .gear-card .samples {
-    grid-column: 1 / -1;
-    order: 3;
-    justify-self: center;
-  }
-  .gear-sub { max-width: 40ch; }
-  .samples  { gap: 12px; max-width: 480px; }
-
-  .topbar { padding: 18px 32px; }
-  .rail   { right: 24px; }
-}
-
-/* =====================================================================
-   13. REDUCED MOTION  —  snap everything to its final state
-   ===================================================================== */
-@media (prefers-reduced-motion: reduce) {
-  .track             { height: auto !important; min-height: 100svh; }
-  [data-dslr-track]  { height: auto !important; min-height: 100svh; }
-  .pin               { position: relative !important; height: 100svh; }
-  .dslr-stack        { transform: translate(-50%, -50%) scale(1.2) !important; filter: none !important; }
-  .gear-card         { transform: none !important; }
-  .gear-card .samples { opacity: 1 !important; transform: none !important; }
-}
-</style>
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -770,10 +32,10 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
 
 <!-- progress rail; one dot per beat (dslr, stills, pov, full) -->
 <nav class="rail" aria-hidden="true">
-  <div class="rail-dot" data-rail="0"></div>
   <div class="rail-dot" data-rail="1"></div>
   <div class="rail-dot" data-rail="2"></div>
   <div class="rail-dot" data-rail="3"></div>
+  <div class="rail-dot" data-rail="4"></div>
   <div class="rail-label">SCROLL</div>
 </nav>
 
@@ -793,52 +55,12 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
 </section>
 
 <!-- ============================================================
-     BEAT 1 — DSLR ZOOM
-     Image assets (drop into /assets/):
-       dslr.png       — full DSLR body
-       dslr-lens.png  — lens close-up; fades in during deep zoom
-     ============================================================ -->
-<section class="stage beat-dslr" data-beat="0" data-screen-label="02 DSLR Zoom">
-  <div class="track" data-dslr-track style="height: 220vh;">
-    <div class="pin">
-      <div class="scene" id="dslr-scene">
-        <!-- ambient cyan glow that intensifies as we zoom -->
-        <div class="dslr-glow" id="dslr-glow"></div>
-
-        <!-- the DSLR — JS drives transform/filter on this stack -->
-        <div class="dslr-stack" id="dslr-stack">
-          <img class="dslr-img"      id="dslr-img"      src="assets/dslr.png"      alt="" decoding="async" />
-          <img class="dslr-lens-img" id="dslr-lens-img" src="assets/dslr-lens.png" alt="" decoding="async" aria-hidden="true" />
-          <!-- aperture blades, generated by JS into <g id="iris-blades"> -->
-          <svg class="dslr-iris" id="dslr-iris" viewBox="-50 -50 100 100" aria-hidden="true">
-            <defs>
-              <radialGradient id="irisGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%"   stop-color="#000" stop-opacity="0"/>
-                <stop offset="55%"  stop-color="#000" stop-opacity="0.55"/>
-                <stop offset="100%" stop-color="#000" stop-opacity="0.95"/>
-              </radialGradient>
-            </defs>
-            <g id="iris-blades"><!-- 8 wedges generated by JS --></g>
-            <circle cx="0" cy="0" r="50" fill="url(#irisGrad)" pointer-events="none"/>
-          </svg>
-          <!-- cyan rim flare that pulses at the climax -->
-          <div class="dslr-flare" id="dslr-flare"></div>
-        </div>
-
-        <div class="dslr-vignette" id="dslr-vignette"></div>
-        <div class="dslr-anno anno-tag">DSLR · scroll to push in</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
      BEAT 2 — 300+ PHOTOS  (stills package)
      Image assets:
        assets/photos/photo-01.JPG      — main hero shot
        assets/photos/photo-02..04.JPG  — sample-strip thumbs
      ============================================================ -->
-<section class="stage gear-beat" data-beat="1" data-screen-label="03 300 Photos">
+<section class="stage gear-beat" data-beat="0" data-screen-label="03 300 Photos">
   <div class="track">
     <div class="pin">
       <div class="scene">
@@ -867,7 +89,7 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
      BEAT 3 — POV FOOTAGE
      Image asset: assets/photos/pov-main.jpg
      ============================================================ -->
-<section class="stage gear-beat" data-beat="2" data-screen-label="04 POV Footage">
+<section class="stage gear-beat" data-beat="1" data-screen-label="04 POV Footage">
   <div class="track">
     <div class="pin">
       <div class="scene">
@@ -896,7 +118,7 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
      BEAT 4 — FULL GAMEPLAY
      Image asset: assets/photos/xbotgo.jpg
      ============================================================ -->
-<section class="stage gear-beat" data-beat="3" data-screen-label="05 Full Gameplay">
+<section class="stage gear-beat" data-beat="2" data-screen-label="05 Full Gameplay">
   <div class="track">
     <div class="pin">
       <div class="scene">
@@ -1006,13 +228,6 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   (function () {
     /* ---------- DOM lookups ---------- */
     const stages       = Array.from(document.querySelectorAll('.stage'));
-    const dslrStack    = document.getElementById('dslr-stack');
-    const dslrImg      = document.getElementById('dslr-img');
-    const dslrLensImg  = document.getElementById('dslr-lens-img');
-    const dslrIris     = document.getElementById('dslr-iris');
-    const dslrFlare    = document.getElementById('dslr-flare');
-    const dslrGlow     = document.getElementById('dslr-glow');
-    const dslrVignette = document.getElementById('dslr-vignette');
     const railDots     = Array.from(document.querySelectorAll('.rail-dot'));
     // gear cards keyed by stage index offset (0=stills, 1=pov, 2=camcorder)
     const cards = {
@@ -1024,23 +239,6 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
     /* ---------- math helpers ---------- */
     const clamp  = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
     const smooth = (t) => t * t * (3 - 2 * t); // smoothstep ease
-
-    /* ---------- iris blades: build once ---------- */
-    (function buildIris() {
-      const g = document.getElementById('iris-blades');
-      if (!g) return;
-      const N = 8, R = 50;
-      let svg = '';
-      for (let i = 0; i < N; i++) {
-        const a0 = (i / N) * Math.PI * 2;
-        const a1 = ((i + 1) / N) * Math.PI * 2 + 0.05;
-        const x0 = Math.cos(a0) * R, y0 = Math.sin(a0) * R;
-        const x1 = Math.cos(a1) * R, y1 = Math.sin(a1) * R;
-        const fill = i % 2 === 0 ? '#0a0a0a' : '#161616';
-        svg += `<path d="M0,0 L${x0.toFixed(2)},${y0.toFixed(2)} A${R},${R} 0 0,1 ${x1.toFixed(2)},${y1.toFixed(2)} Z" fill="${fill}" opacity="0.85"/>`;
-      }
-      g.innerHTML = svg;
-    })();
 
     /* ---------- per-stage scroll progress ----------
        Returns 0 → 1 across a stage's track:
@@ -1054,93 +252,25 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
       return clamp(-r.top / total, 0, 1);
     }
 
-    /* ---------- Beat 1 — DSLR zoom ----------
-       Phase boundaries (tweak to retime the zoom):
-         0      → DRIFT : drift in + 3D tilt → flat
-         DRIFT  → ZOOM  : aggressive scale-up to ~8x
-         ZOOM   → 1.0   : deep zoom to ~22x; lens close-up takes over */
-    const PHASE_DRIFT = 0.35;
-    const PHASE_ZOOM  = 0.75;
-
-    function updateDslr() {
-      if (!dslrStack) return;
-      const p = trackProgress(stages[0]);
-
-      // scale curve across the 3 phases
-      let scale;
-      if (p < PHASE_DRIFT) {
-        scale = 0.85 + smooth(p / PHASE_DRIFT) * 0.15;                              // 0.85 → 1.0
-      } else if (p < PHASE_ZOOM) {
-        scale = 1.0 + smooth((p - PHASE_DRIFT) / (PHASE_ZOOM - PHASE_DRIFT)) * 7.0; // 1 → 8
-      } else {
-        scale = 8.0 + smooth((p - PHASE_ZOOM) / (1 - PHASE_ZOOM)) * 14.0;           // 8 → 22
-      }
-
-      // 3D tilt only during the drift phase
-      const tilt = (1 - clamp(p / PHASE_DRIFT, 0, 1)) * 8;
-
-      // subtle handheld jitter once we're zoomed in
-      const t = performance.now() / 1000;
-      const jitterAmt = clamp((p - PHASE_DRIFT) / (PHASE_ZOOM - PHASE_DRIFT), 0, 1) * 1.2;
-      const jx = Math.sin(t * 2.3) * jitterAmt;
-      const jy = Math.cos(t * 1.7) * jitterAmt;
-
-      dslrStack.style.transform =
-        `translate(calc(-50% + ${jx}px), calc(-50% + ${jy}px)) ` +
-        `perspective(1200px) rotateY(${tilt}deg) scale(${scale})`;
-
-      // body image fades down as the lens close-up fades in
-      const lensFade = clamp((p - 0.6) / 0.25, 0, 1);
-      dslrImg.style.opacity     = String(1 - lensFade * 0.6);
-      dslrLensImg.style.opacity = String(lensFade);
-
-      // iris blades fade in + slowly rotate
-      const irisAmt = clamp((p - 0.7) / 0.25, 0, 1);
-      dslrIris.style.opacity   = String(irisAmt * 0.9);
-      dslrIris.style.transform = `rotate(${p * 60}deg)`;
-
-      // final-stretch blur + saturation drop
-      const blur = clamp((p - 0.85) / 0.15, 0, 1) * 8;
-      const sat  = 1 - clamp((p - 0.85) / 0.15, 0, 1) * 0.4;
-      dslrStack.style.filter = `blur(${blur.toFixed(2)}px) saturate(${sat.toFixed(2)})`;
-
-      // cyan ambient glow ramps up
-      if (dslrGlow) {
-        const glowAmt = smooth(clamp((p - 0.4) / 0.5, 0, 1));
-        dslrGlow.style.background =
-          `radial-gradient(circle at 50% 56%, rgba(74, 222, 128, ${0.18 * glowAmt}) 0%, transparent ${30 + glowAmt * 30}%)`;
-        dslrGlow.style.opacity = String(glowAmt);
-      }
-
-      // climactic cyan rim flare (bell curve, peaks at p ≈ 0.93)
-      if (dslrFlare) {
-        let flare = 0;
-        if (p > 0.88 && p < 0.98) {
-          const x = (p - 0.93) / 0.05;
-          flare = Math.max(0, 1 - x * x);
-        }
-        dslrFlare.style.opacity   = String(flare);
-        dslrFlare.style.boxShadow =
-          `0 0 0 ${(2 + flare * 6).toFixed(1)}px rgba(74, 222, 128, ${(flare * 0.9).toFixed(2)}),
-           0 0 ${(60 + flare * 80).toFixed(0)}px ${(10 + flare * 30).toFixed(0)}px rgba(74, 222, 128, ${(flare * 0.5).toFixed(2)})`;
-      }
-
-      // vignette deepens as we push in
-      if (dslrVignette) {
-        dslrVignette.style.opacity = String(0.4 + clamp((p - 0.5) / 0.5, 0, 1) * 0.4);
-      }
-    }
-
     /* ---------- Beats 2–4 — gear cards ----------
-       Slide in over the first half of the track, then lock at center.
+       Slide in based on the card's viewport position:
+         p = 0 when card top enters viewport bottom
+         p = 1 when card center reaches viewport middle
        --p drives translate (see .gear-card.from-right/.from-left CSS).
        .is-locked triggers the sample-strip fade-in. */
+    function cardEnterProgress(card) {
+      const r = card.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const startY = vh;                       // card top at viewport bottom → p=0
+      const endY   = vh / 2 - r.height / 2;    // card center at viewport middle → p=1
+      const total  = Math.max(1, startY - endY);
+      return clamp((startY - r.top) / total, 0, 1);
+    }
     function updateGearCards() {
-      [1, 2, 3].forEach((stageIdx, cardIdx) => {
-        const p = trackProgress(stages[stageIdx]);
-        const v = p < 0.5 ? smooth(p / 0.5) : 1;
+      [0, 1, 2].forEach((stageIdx, cardIdx) => {
         const card = cards[cardIdx];
         if (!card) return;
+        const v = smooth(cardEnterProgress(card));
         card.style.setProperty('--p', v.toFixed(3));
         card.classList.toggle('is-locked', v >= 0.95);
       });
@@ -1161,7 +291,6 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
 
     /* ---------- main per-frame update ---------- */
     function update() {
-      updateDslr();
       updateGearCards();
       updateRail();
     }
