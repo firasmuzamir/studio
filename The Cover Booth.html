@@ -13,7 +13,10 @@
 
 <!-- ── MASTHEAD ───────────────────────────────────────────── -->
 <header class="masthead">
-  <div class="brand">Sifu Tangkap</div>
+  <div class="brand">
+    <img class="brand-mark" src="assets/logotrans.png" alt="" aria-hidden="true" />
+    <div class="brand-name">SIFU TANGKAP STUDIOS</div>
+  </div>
   <nav class="right">
     <a href="#book">Book</a>
   </nav>
@@ -60,8 +63,12 @@
       </div>
     </div>
     <div class="booth-shadow"></div>
-  </div>
 
+  </div>
+</section>
+
+<!-- ── BULLET REEL ────────────────────────────────────────── -->
+<section class="bullet-reel" id="bullet-reel" data-screen-label="03 Highlights">
   <div class="cover-bullets">
     <div>
       <span class="n">01</span>
@@ -74,14 +81,14 @@
       <span class="n">02</span>
       <div class="t">
         <div class="h">Studio Quality</div>
-        <div class="s">Powered by automated DSLR</div>
+        <div class="s">Powered by DSLR</div>
       </div>
     </div>
     <div>
       <span class="n">03</span>
       <div class="t">
         <div class="h">Instant Transfer</div>
-        <div class="s">Locally made AirDrop like transfer</div>
+        <div class="s">AirDrop like transfer</div>
       </div>
     </div>
     <div>
@@ -388,12 +395,15 @@
     { el: document.getElementById('book'),            num: '06', label: '— Booking —' },
   ];
 
+  // Bullet reel — each bullet scales toward 1 as it nears viewport center.
+  const bullets = document.querySelectorAll('.bullet-reel .cover-bullets > div');
+
   // Scroll distance at which the booth's centre lines up with the viewport centre.
   // Recomputed on load + resize; the rotation reaches t=1 here.
   let triggerEnd = window.innerHeight;
   function measure() {
     const prev = booth.style.transform;
-    booth.style.transform = 'translate(-50%, -50%)';
+    booth.style.transform = 'translate(-50%, 0)';
     const rect = booth.getBoundingClientRect();
     booth.style.transform = prev;
     const boothCenter = rect.top + rect.height / 2 + window.scrollY;
@@ -406,10 +416,10 @@
 
     // Booth rotation 0 → full as the booth scrolls to the vertical centre of the screen.
     const t = Math.max(0, Math.min(1, y / triggerEnd));
-    const ry = t * -15;       // 0 → -15deg yaw (front swings left, reveals right side)
-    const rx = t * -4;        // 0 → -4deg pitch (open like a cover)
-    const tz = t * -30;       // pull back slightly
-    booth.style.transform = `translate(-50%, calc(-50% + ${t * -10}px)) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(${tz}px)`;
+    const ry = t * -18;       // 0 → -30deg yaw (front swings left, reveals right side)
+    const rx = t * -6;        // 0 → -7deg pitch (open like a cover)
+    const tz = t * -15;       // pull back slightly
+    booth.style.transform = `translate(-50%, ${t * -10}px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(${tz}px)`;
 
     // Update folio based on which section is at viewport center.
     const probe = y + vh / 2;
@@ -423,6 +433,21 @@
       folioNum.textContent = active.num;
       folioLabel.textContent = active.label;
     }
+
+    // Bullet reel — proximity to viewport center → --p in [0, 1].
+    // Range is intentionally narrow so neighbors don't co-expand and steal
+    // attention from the focused bullet.
+    const centerY = vh / 2;
+    const range = vh * 0.18;
+    bullets.forEach(b => {
+      const r = b.getBoundingClientRect();
+      const bc = r.top + r.height / 2;
+      let p = 1 - Math.abs(bc - centerY) / range;
+      if (p < 0) p = 0;
+      if (p > 1) p = 1;
+      p = p * p * (3 - 2 * p);
+      b.style.setProperty('--p', p.toFixed(3));
+    });
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });

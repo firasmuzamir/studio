@@ -22,9 +22,6 @@ body {
 }
 ::selection { background: var(--ink); color: var(--paper); }
 
-.serif { font-family: "Bodoni Moda", "Times New Roman", serif; font-optical-sizing: auto; }
-.mono  { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 400; }
-
 /* ── Subtle grain (very light on pure white) ─────────────── */
 body::before {
   content: "";
@@ -42,38 +39,43 @@ body::before {
 
 /* ── Masthead ───────────────────────────────────────────── */
 .masthead {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 18px clamp(20px, 4vw, 32px);
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
   background: linear-gradient(#ffffff 70%, rgba(255,255,255,0));
-  /* border-bottom: 1px solid var(--rule); */
 }
-.masthead .left, .masthead .right {
+.masthead .right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  display: flex;
-  gap: 28px;
+  justify-content: flex-end;
 }
-.masthead .right { justify-content: flex-end; }
 .masthead .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.masthead .brand-mark {
+  height: 32px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+.masthead .brand-name {
   font-family: "Bodoni Moda", serif;
   font-weight: 800;
-  font-size: 22px;
-  letter-spacing: 0.18em;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  line-height: 1;
   text-transform: uppercase;
-}
-.masthead .brand .dot {
-  display: inline-block;
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  margin: 0 6px 4px;
-  vertical-align: middle;
 }
 .masthead a { color: var(--ink); text-decoration: none; }
 .masthead a:hover { color: var(--accent); }
@@ -116,33 +118,6 @@ body::before {
   align-items: start;
 }
 
-.cover-issue {
-  grid-column: 1; grid-row: 1;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  line-height: 1.6;
-}
-.cover-issue strong { font-weight: 500; }
-.cover-issue .price {
-  display: inline-block;
-  padding: 3px 8px;
-  border: 1px solid var(--ink);
-  margin-right: 8px;
-}
-
-.cover-tagline {
-  grid-column: 3; grid-row: 1;
-  text-align: right;
-  font-family: "Bodoni Moda", serif;
-  font-style: italic;
-  font-size: 14px;
-  max-width: 320px;
-  margin-left: auto;
-  line-height: 1.45;
-}
-
 .cover-title {
   grid-column: 1 / -1; grid-row: 2;
   align-self: center;
@@ -181,8 +156,7 @@ body::before {
   --booth-d: clamp(140px, 16vw, 200px);
 
   position: relative;
-  flex: 1;
-  min-height: 60vh;
+  height: var(--booth-h);
   perspective: 2400px;
   perspective-origin: 50% 40%;
   pointer-events: none;
@@ -190,10 +164,10 @@ body::before {
 .booth-3d {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 0;
   width: var(--booth-w);
   height: var(--booth-h);
-  transform: translate(-50%, -50%) rotateY(0deg);
+  transform: translate(-50%, 0) rotateY(0deg);
   transform-style: preserve-3d;
   transform-origin: 50% 50%;
   will-change: transform;
@@ -294,10 +268,10 @@ body::before {
 .booth-shadow {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 0;
   width: calc(var(--booth-w) * 0.85);
   height: 24px;
-  transform: translate(-50%, calc(var(--booth-h) / 2 + 8px));
+  transform: translate(-50%, calc(var(--booth-h) + 8px));
   background: radial-gradient(ellipse, rgba(0,0,0,0.22), rgba(0,0,0,0) 70%);
   filter: blur(2px);
 }
@@ -307,13 +281,29 @@ body::before {
 ══════════════════════════════════════════════════════════ */
 .booth-showcase {
   position: relative;
-  min-height: 100vh;
-  padding: 80px clamp(20px, 4vw, 48px) 60px;
+  padding: 80px clamp(20px, 4vw, 48px) 40px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 24px;
   border-top: 1px solid var(--rule);
 }
+.booth-showcase::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -60vh;
+  bottom: -60vh;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.56 0.19 28 / 0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.56 0.19 28 / 0.35) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, transparent 100%);
+}
+.booth-showcase > * { position: relative; z-index: 1; }
 
 /* cover folio bits */
 .cover-bullets {
@@ -355,6 +345,36 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
+}
+
+/* ══════════════════════════════════════════════════════════
+   BULLET REEL — each bullet expands at viewport center,
+   shrinks as it leaves. JS sets --p (0→1) per bullet.
+══════════════════════════════════════════════════════════ */
+.bullet-reel {
+  position: relative;
+  padding: 80px clamp(20px, 4vw, 48px) 50vh;
+  border-top: 1px solid var(--rule);
+}
+.bullet-reel .cover-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 9vh;
+  border: none;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.bullet-reel .cover-bullets > div {
+  --p: 0;
+  padding: 0;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  transform: scale(calc(0.7 + 0.7 * var(--p)));
+  transform-origin: center;
+  opacity: calc(0.5 + 0.5 * var(--p));
+  will-change: transform, opacity;
 }
 
 /* scroll cue */
@@ -403,33 +423,6 @@ body::before {
   padding: 90px clamp(20px, 4vw, 48px) 80px;
   border-top: 1px solid var(--rule);
 }
-.spread-head {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 24px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--ink);
-  margin-bottom: 48px;
-}
-.spread-head .feature {
-  font-family: "Bodoni Moda", serif;
-  font-style: italic;
-  font-size: 15px;
-  letter-spacing: 0.02em;
-  text-transform: none;
-}
-.spread-head .num {
-  font-family: "Bodoni Moda", serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
 .display-h {
   font-family: "Bodoni Moda", serif;
   font-weight: 800;
@@ -444,16 +437,6 @@ body::before {
   color: var(--accent);
 }
 
-.drop p { margin: 0 0 1em; }
-.drop p:first-child::first-letter {
-  font-family: "Bodoni Moda", serif;
-  font-weight: 800;
-  font-size: 4.6em;
-  float: left;
-  line-height: 0.88;
-  padding: 6px 10px 0 0;
-  color: var(--ink);
-}
 .body-copy {
   font-family: "Archivo", sans-serif;
   font-size: 15px;
@@ -462,15 +445,6 @@ body::before {
   max-width: 56ch;
   column-fill: balance;
 }
-.caption {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-}
-.caption .lead { color: var(--ink); font-weight: 500; }
-
 /* ── Spread 1: Uncompromised Fidelity ───────────────────── */
 .spread-1 {
   background: var(--paper);
@@ -495,103 +469,13 @@ body::before {
   background: radial-gradient(ellipse at 50% 38%, rgba(255,235,200,0.55), transparent 55%);
   pointer-events: none;
 }
-.s1-portrait-tag {
-  position: absolute;
-  left: 14px; top: 14px;
-  background: var(--paper);
-  border: 1px solid var(--ink);
-  padding: 6px 10px;
-  z-index: 2;
-}
-.s1-portrait-tag .pt-1 {
-  font-family: "Bodoni Moda", serif;
-  font-style: italic;
-  font-size: 18px;
-  line-height: 1;
-}
-.s1-portrait-tag .pt-2 {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  margin-top: 2px;
-}
-.pull-quote {
-  margin-top: 30px;
-  font-family: "Bodoni Moda", serif;
-  font-style: italic;
-  font-weight: 500;
-  font-size: 30px;
-  line-height: 1.15;
-  letter-spacing: -0.005em;
-  border-left: 2px solid var(--accent);
-  padding-left: 18px;
-}
-.pull-quote .attrib {
-  display: block;
-  font-style: normal;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-top: 14px;
-  color: var(--muted);
-}
-
-.s1-right { display: flex; flex-direction: column; gap: 24px; }
-.s1-headline-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 8px;
-}
-.s1-headline-row .mono { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
-.s1-body { columns: 2; column-gap: 32px; column-rule: 1px solid rgba(0,0,0,0.15); }
-.s1-body .body-copy { max-width: none; }
-
-.spec-strip {
-  margin-top: 12px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-}
-.spec-strip > div {
-  padding: 16px 14px;
-  border-right: 1px dashed rgba(0,0,0,0.2);
-}
-.spec-strip > div:last-child { border-right: none; }
-.spec-strip .k {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.spec-strip .v {
-  font-family: "Bodoni Moda", serif;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 1;
-  margin-top: 8px;
-}
-.spec-strip .v em {
-  font-style: italic;
-  font-weight: 500;
-  font-size: 14px;
-  color: var(--muted);
-}
-
 /* ── Spread 2: Instant Edit ─────────────────────────────── */
 .spread-2 {
   background: var(--paper);
   color: var(--ink);
 }
-.spread-2 .spread-head { border-bottom-color: var(--ink); color: var(--ink); }
 .spread-2 .body-copy { color: var(--ink-2); }
 .spread-2 .display-h em { color: var(--accent); }
-.spread-2 .caption { color: var(--muted); }
-.spread-2 .caption .lead { color: var(--ink); }
 
 .s2-grid {
   display: grid;
@@ -651,9 +535,6 @@ body::before {
   overflow: hidden;
   position: relative;
   background: linear-gradient(180deg, #2a2620, #161410);
-}
-.phone .swatch {
-  position: absolute; inset: 0;
 }
 .phone .meta {
   position: absolute; left: 14px; right: 14px; bottom: 12px;
@@ -731,55 +612,11 @@ body::before {
   color: var(--ink);
 }
 
-.timing-row {
-  margin-top: 32px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-}
-.timing-row > div {
-  padding: 22px 18px;
-  border-right: 1px solid rgba(0,0,0,0.15);
-}
-.timing-row > div:last-child { border-right: none; }
-.timing-row .t-num {
-  font-family: "Bodoni Moda", serif;
-  font-weight: 700;
-  font-size: 52px;
-  line-height: 1;
-  color: var(--ink);
-}
-.timing-row .t-num em {
-  font-style: italic;
-  font-weight: 500;
-  font-size: 22px;
-  color: var(--accent);
-}
-.timing-row .t-lbl {
-  margin-top: 10px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-}
-
 /* ── Spread 3: Unlimited Archive ─────────────────────────── */
 .spread-3 {
   background: var(--paper);
   padding-bottom: 0;
 }
-.s3-headblock {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 60px;
-  align-items: end;
-  margin-bottom: 50px;
-}
-.s3-headblock .body-copy { max-width: 48ch; }
-
 .masonry {
   columns: 5;
   column-gap: 14px;
@@ -970,34 +807,18 @@ body::before {
 }
 
 @media (max-width: 1180px) {
-  .masthead { grid-template-columns: 1fr auto; }
-  .masthead .left { display: none; }
   .masthead .right { gap: 18px; font-size: 10px; }
 
   .cover { grid-template-columns: 1fr; }
-  .cover-issue { grid-column: 1; grid-row: 1; }
-  .cover-tagline { grid-column: 1; grid-row: 3; text-align: left; margin-left: 0; margin-top: 8px; max-width: none; }
   .cover-title { grid-column: 1; grid-row: 2; }
-  .booth-stage {
-    grid-column: 1; grid-row: 4;
-    height: 480px;
-    margin-top: 24px;
-  }
   .booth-stage {
     --booth-w: clamp(260px, 50vw, 380px);
     --booth-d: clamp(140px, 22vw, 200px);
   }
   .booth-shadow { display: none; }
-  .cover-bullets { grid-column: 1; grid-row: 5; grid-template-columns: 1fr 1fr; }
-  .cover-bullets > div:nth-child(2) { border-right: none; }
-  .cover-bullets > div:nth-child(1),
-  .cover-bullets > div:nth-child(2) { border-bottom: 1px solid var(--ink); }
 
-  .s1-grid, .s2-grid, .s3-headblock { grid-template-columns: 1fr; gap: 36px; }
-  .s1-body { columns: 1; }
+  .s1-grid, .s2-grid { grid-template-columns: 1fr; gap: 36px; }
   .masonry { columns: 3; }
-  .spec-strip, .timing-row { grid-template-columns: 1fr 1fr; }
-  .timing-row > div:nth-child(2) { border-right: none; }
   .booking { grid-template-columns: 1fr; }
   .cta-stack { align-items: flex-start; }
   .colophon { grid-template-columns: 1fr 1fr; }
@@ -1008,7 +829,7 @@ body::before {
 
 @media (max-width: 760px) {
   .masthead { padding: 14px 18px; }
-  .masthead .brand { font-size: 18px; letter-spacing: 0.14em; }
+  .masthead .brand-name { font-size: 12px; letter-spacing: 0.06em; }
   .masthead .right { gap: 14px; font-size: 9.5px; }
 
   .cover { padding-top: 92px; }
@@ -1016,26 +837,13 @@ body::before {
   .cover-title .the { font-size: clamp(22px, 6vw, 40px); }
 
   .booth-stage {
-    height: 400px;
     --booth-w: clamp(220px, 60vw, 320px);
     --booth-d: clamp(120px, 28vw, 180px);
   }
 
-  .cover-bullets { grid-template-columns: 1fr; }
-  .cover-bullets > div { border-right: none; border-bottom: 1px solid var(--ink); }
-  .cover-bullets > div:last-child { border-bottom: none; }
-
   .spread { padding: 70px 20px 60px; }
-  .spread-head { grid-template-columns: 1fr; gap: 6px; margin-bottom: 32px; padding-bottom: 16px; }
-  .spread-head .feature { font-size: 13px; }
 
   .display-h { font-size: clamp(44px, 11vw, 80px); }
-
-  .pull-quote { font-size: 22px; }
-
-  .spec-strip, .timing-row { grid-template-columns: 1fr; }
-  .spec-strip > div, .timing-row > div { border-right: none !important; border-bottom: 1px solid var(--ink); }
-  .spec-strip > div:last-child, .timing-row > div:last-child { border-bottom: none; }
 
   .masonry { columns: 2; column-gap: 10px; }
   .masonry .tile { margin-bottom: 10px; }
@@ -1058,12 +866,10 @@ body::before {
 }
 
 @media (max-width: 460px) {
-  .masthead .right a:nth-child(n+3) { display: none; }
   .cover-title { font-size: clamp(56px, 18vw, 110px); }
   .phone-stack { height: 440px; }
   .phone { width: 150px; }
   .phone.p1 { left: 0; top: 20px; }
   .phone.p2 { left: 80px; top: 60px; }
   .phone.p3 { left: 170px; top: 14px; }
-  .booth-stage { height: 360px; }
 }

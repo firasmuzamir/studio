@@ -38,38 +38,10 @@ body {
 }
 img, svg { display: block; max-width: 100%; }
 
-/* sr-only utility */
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-
 /* =====================================================================
    3. WIREFRAME CHROME
-   Annotation pill tags + faint vertical column-grid overlay.
-   The Tweaks panel can hide annotations via a runtime stylesheet.
+   Faint vertical column-grid overlay.
    ===================================================================== */
-.anno {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  color: var(--dim);
-  text-transform: uppercase;
-}
-.anno-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
-  border: 1px dashed var(--line-2);
-  border-radius: 999px;
-  color: var(--muted);
-  background: rgba(255,255,255,0.02);
-}
-.anno-tag::before {
-  content: "";
-  width: 5px; height: 5px;
-  border-radius: 999px;
-  background: var(--accent);
-}
-
 /* faint 12-col grid overlay (decorative scaffolding) */
 .wf-grid {
   position: fixed;
@@ -109,24 +81,7 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: 0.08em;
   line-height: 1;
 }
-.brand-name span { color: var(--accent); }
-
 .topbar-actions { display: flex; align-items: center; gap: 8px; }
-.icon-btn {
-  display: inline-grid;
-  place-items: center;
-  width: 32px; height: 32px;
-  border: 1px solid var(--line-2);
-  background: transparent;
-  border-radius: 999px;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 0;
-  transition: border-color 0.2s, color 0.2s;
-}
-.icon-btn:hover { border-color: var(--accent); color: var(--accent); }
-.icon-btn svg { width: 14px; height: 14px; }
-
 .topbar-cta {
   font-family: var(--mono);
   font-size: 11px;
@@ -255,95 +210,6 @@ body.mode-smooth .track { height: auto; min-height: 100svh; }
 body.mode-smooth .pin   { position: relative; height: 100svh; }
 
 /* =====================================================================
-   8. BEAT 1 — DSLR ZOOM
-   Scroll-scrubbed transforms applied via JS to .dslr-stack.
-   See updateDslr() in <script>; tweak phase boundaries there.
-   ===================================================================== */
-.beat-dslr .scene {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  background: radial-gradient(ellipse at 50% 56%, #141414 0%, #0a0a0a 60%, #050505 100%);
-}
-.dslr-stack {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(140vw, 720px);
-  aspect-ratio: 16 / 10;
-  transform: translate(-50%, -50%);
-  will-change: transform, filter;
-  transform-origin: 51% 56%;   /* lens center on the source photo */
-}
-.dslr-img,
-.dslr-lens-img,
-.dslr-iris,
-.dslr-flare {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  user-select: none;
-  pointer-events: none;
-}
-.dslr-img { object-fit: contain; object-position: center; }
-
-/* lens close-up pinned over the lens region of the body image */
-.dslr-lens-img {
-  object-fit: contain;
-  width: 38%; height: 72%;
-  top: 14%; left: 32%;
-  inset: auto;
-  opacity: 0;
-  will-change: opacity, transform;
-}
-/* aperture blades, sit over the lens, rotate slowly */
-.dslr-iris {
-  width: 38%; height: 72%;
-  top: 14%; left: 32%;
-  inset: auto;
-  transform-origin: 50% 50%;
-  opacity: 0;
-  mix-blend-mode: multiply;
-}
-/* cyan rim ring around the lens for the climactic flash */
-.dslr-flare {
-  width: 38%; height: 72%;
-  top: 14%; left: 32%;
-  inset: auto;
-  border-radius: 999px;
-  box-shadow:
-    0 0 0 2px rgba(74, 222, 128, 0),
-    0 0 60px 10px rgba(74, 222, 128, 0);
-  opacity: 0;
-  transition: none;
-}
-.dslr-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 56%, rgba(74, 222, 128, 0) 0%, transparent 50%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.1s linear;
-}
-.dslr-vignette {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
-  opacity: 0.4;
-}
-.beat-dslr .dslr-anno {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-}
-
-/* =====================================================================
    9. BEATS 2–4 — GEAR CARDS  (stills, POV, full broadcast)
    - .gear-card.from-right / .from-left  : slide direction.
    - .gear-card.text-right               : on desktop, copy lands right.
@@ -403,11 +269,6 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   object-position: center;
   display: block;
 }
-.gear-visual .placeholder-tag {
-  position: absolute;
-  top: 12px; left: 12px;
-}
-
 /* copy block (kicker + headline + sub) */
 .gear-copy { position: relative; text-align: left; }
 /* corner field-line motif behind the headline (bracket marker) */
@@ -420,11 +281,6 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   border-left: 2px solid var(--accent);
   opacity: 0.35;
   pointer-events: none;
-}
-.gear-card.text-right .gear-copy::before {
-  left: auto; right: -10px;
-  border-left: none;
-  border-right: 2px solid var(--accent);
 }
 .gear-kicker {
   font-family: var(--mono);
@@ -701,17 +557,12 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
 
   /* slow each beat down on desktop (more pixels of scroll per beat) */
   .track            { height: 220vh; }
-  [data-dslr-track] { height: 320vh; }
-
-  .dslr-stack { width: min(92vw, 720px); }
 
   /* gear cards: photo + copy side by side, samples full-width below */
   .gear-card {
     grid-template-columns: 1fr 1fr;
     gap: 48px;
   }
-  .gear-card.text-right .gear-copy   { order: 2; text-align: right; }
-  .gear-card.text-right .gear-visual { order: 1; }
   .gear-card .samples {
     grid-column: 1 / -1;
     order: 3;
@@ -729,9 +580,7 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
    ===================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .track             { height: auto !important; min-height: 100svh; }
-  [data-dslr-track]  { height: auto !important; min-height: 100svh; }
   .pin               { position: relative !important; height: 100svh; }
-  .dslr-stack        { transform: translate(-50%, -50%) scale(1.2) !important; filter: none !important; }
   .gear-card         { transform: none !important; }
   .gear-card .samples { opacity: 1 !important; transform: none !important; }
 }
