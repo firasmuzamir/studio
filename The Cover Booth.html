@@ -3,13 +3,23 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Sifu Tangkap Studios</title>
+<title>Sifu Tangkap Studios — The Magazine Booth</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,500&family=Archivo:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,500&family=Archivo:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="cover-booth.css">
 </head>
-<body>
+<body class="sketch-mode">
+
+<!-- SVG filters for sketch wobble -->
+<svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+  <defs>
+    <filter id="sketch-rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
 
 <!-- ── MASTHEAD ───────────────────────────────────────────── -->
 <header class="masthead">
@@ -24,10 +34,14 @@
 
 <!-- ── COVER ──────────────────────────────────────────────── -->
 <section class="cover" data-screen-label="01 Cover">
+  <div class="sketch-stamp">THE BEST CHOICE</div>
+  <span class="sketch-note cover-note left">dream<br/>day ✨</span>
+  <span class="sketch-note cover-note right">this is<br/><span style="text-decoration: underline;">the one!</span></span>
+
   <h1 class="cover-title">
     <span class="the">The</span>
     <span class="cover-word">Magazine</span>
-    <span class="booth-word"><em style="font-style:italic;font-weight:500;">Booth</em></span>
+    <span class="booth-word"><em>Booth</em><span class="sketch-circle" aria-hidden="true"><svg viewBox="0 0 200 100" preserveAspectRatio="none"><path d="M 20 50 Q 30 12, 100 10 Q 178 14, 188 50 Q 184 88, 100 92 Q 22 90, 20 52 Z"/></svg></span></span>
   </h1>
 
   <div class="scroll-cue">
@@ -38,10 +52,12 @@
 
 <!-- ── BOOTH SHOWCASE ─────────────────────────────────────── -->
 <section class="booth-showcase" id="booth-showcase" data-screen-label="02 Booth">
+  <span class="sketch-note bs-note tl">design &<br/>words of your choice →</span>
+  <span class="sketch-note bs-note br">fully<br/>costumizable</span>
   <div class="booth-stage">
     <div class="booth-3d" id="booth3d">
       <div class="booth-face booth-back">
-        <img src="assets/photobooth_side.jpg" alt="Sifu Tangkap Studios — Walk-in Photo Booth side" />
+        <img src="assets/photobooth_side.jpg" alt="" />
       </div>
       <div class="booth-face booth-left">
         <img src="assets/photobooth_side.jpg" alt="" />
@@ -50,10 +66,10 @@
         <img src="assets/photobooth_side.jpg" alt="Sifu Tangkap Studios — Walk-in Photo Booth side" />
       </div>
       <div class="booth-face booth-top">
-        <img src="assets/photobooth_side.jpg" alt="Sifu Tangkap Studios — Walk-in Photo Booth cover" />
-      </div>       
+        <img src="assets/photobooth_side.jpg" alt="" />
+      </div>
       <div class="booth-face booth-bottom">
-        <img src="assets/photobooth_side.jpg" alt="Sifu Tangkap Studios — Walk-in Photo Booth cover" />
+        <img src="assets/photobooth_side.jpg" alt="" />
       </div>
       <div class="booth-face booth-front">
         <img src="assets/photobooth_front.jpg" alt="Sifu Tangkap Studios — Walk-in Photo Booth cover" />
@@ -63,7 +79,6 @@
       </div>
     </div>
     <div class="booth-shadow"></div>
-
   </div>
 </section>
 
@@ -76,6 +91,7 @@
         <div class="h">Walk-in Structure</div>
         <div class="s">Fits up to 6 people</div>
       </div>
+      <span class="sketch-note br-note">love this!</span>
     </div>
     <div>
       <span class="n">02</span>
@@ -83,6 +99,7 @@
         <div class="h">Studio Quality</div>
         <div class="s">Powered by DSLR</div>
       </div>
+      <span class="sketch-note br-note">crisp ✨</span>
     </div>
     <div>
       <span class="n">03</span>
@@ -90,6 +107,7 @@
         <div class="h">Instant Transfer</div>
         <div class="s">AirDrop like transfer</div>
       </div>
+      <span class="sketch-note br-note">no waiting!</span>
     </div>
     <div>
       <span class="n">04</span>
@@ -97,19 +115,17 @@
         <div class="h">Unlimited Frames</div>
         <div class="s">Shoot till lights out</div>
       </div>
+      <span class="sketch-note br-note">YES →</span>
     </div>
   </div>
 </section>
 
 <!-- ── SPREAD 1: FIDELITY ─────────────────────────────────── -->
-<section class="spread spread-1" id="fidelity" data-screen-label="02 Fidelity">
-
+<section class="spread spread-1" id="fidelity" data-screen-label="04 Fidelity">
   <h2 class="display-h">Studio quality, <em>anywhere</em>.</h2>
-  <div>
-    <p class="body-copy" style="margin-top:18px;">
-      The booth runs on batteries and can be set up in minutes at any venue.
-    </p>
-  </div>
+  <p class="body-copy spread-lede">
+    The booth runs on batteries and can be set up in minutes at any venue.
+  </p>
 
   <div class="s1-grid">
     <div class="s1-left">
@@ -121,19 +137,16 @@
           INSIDE THE BOOTH, KEY LIGHT FROM LEFT
         </div>
       </div>
-    </div>   
+    </div>
   </div>
 </section>
 
 <!-- ── SPREAD 2: INSTANT EDIT ─────────────────────────────── -->
-<section class="spread spread-2" id="instant" data-screen-label="03 Instant">
-
+<section class="spread spread-2" id="instant" data-screen-label="05 Instant">
   <h2 class="display-h">Seamless delivery.<br/><em>Zero friction.</em></h2>
-  <div>
-    <p class="body-copy" style="margin-top:18px;">
-      Every photo is delivered wirelessly to the guest's phone, just like Airdrop.
-    </p>
-  </div>
+  <p class="body-copy spread-lede">
+    Every photo is delivered wirelessly to the guest's phone, just like AirDrop.
+  </p>
 
   <div class="s2-grid">
     <div class="phone-stack">
@@ -186,14 +199,11 @@
 </section>
 
 <!-- ── SPREAD 3: ARCHIVE ──────────────────────────────────── -->
-<section class="spread spread-3" id="archive" data-screen-label="04 Archive">
-  
-  <h2 class="display-h">The unlimited <em>photos</em>.</h2>
-  <div>
-    <p class="body-copy" style="margin-top:18px;">
-      Since no printers or physical consumables are involved, you can shoot unlimited frames throughout your event.
-    </p>
-  </div>
+<section class="spread spread-3" id="archive" data-screen-label="06 Archive">
+  <h2 class="display-h">The unlimited <em>archive</em>.</h2>
+  <p class="body-copy spread-lede">
+    Since no printers or physical consumables are involved, you can shoot unlimited frames throughout your event.
+  </p>
 
   <div class="masonry">
     <div class="tile" style="aspect-ratio: 3 / 4;">
@@ -329,7 +339,7 @@
 </section>
 
 <!-- ── BOOKING ────────────────────────────────────────────── -->
-<section class="booking" id="book" data-screen-label="05 Booking">
+<section class="booking" id="book" data-screen-label="07 Booking">
   <div>
     <h2 class="b-h">Reserve <em>the cover</em> of your evening.</h2>
     <div class="b-sub">— Quotes returned within 24 hours · Bookings open through 2027 —</div>
@@ -337,6 +347,7 @@
   <div class="cta-stack">
     <a href="#" class="cta">Book the Booth <span class="arrow">→</span></a>
     <a href="#" class="cta ghost">See the Press Kit <span class="arrow">→</span></a>
+    <span class="sketch-note bk-note">← only 3 dates<br/>left in June!</span>
   </div>
 </section>
 
@@ -345,7 +356,7 @@
   <div>
     <h4>Colophon</h4>
     <div class="mark">Sifu <em>Tangkap</em></div>
-    <p style="font-family: 'Archivo'; text-transform: none; letter-spacing: 0; font-size: 13px; line-height: 1.6; color: var(--muted);">
+    <p class="colophon-blurb">
       Walk-in studios for weddings, brand events &amp; private parties. Based in Kuala Lumpur, touring South-East Asia.
     </p>
   </div>
@@ -365,7 +376,7 @@
   </div>
   <div>
     <h4>Contact</h4>
-    <a href="/cdn-cgi/l/email-protection#3a525f5656557a49535c4f4e5b545d515b4a14494e4f5e5355"><span class="__cf_email__" data-cfemail="c0a8a5acacaf80b3a9a6b5b4a1aea7aba1b0eeb3b4b5a4a9af">[email&#160;protected]</span></a><br/>
+    <a href="/cdn-cgi/l/email-protection#88e0ede4e4e7c8fbe1eefdfce9e6efe3e9f8a6fbfcfdece1e7"><span class="__cf_email__" data-cfemail="7e161b1212113e0d17180b0a1f1019151f0e500d0a0b1a1711">[email&#160;protected]</span></a><br/>
     <a href="#">+60 ·· ····· ····</a><br/>
     <a href="#">Instagram</a><br/>
     <a href="#">TikTok</a>
@@ -379,27 +390,25 @@
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Scroll-driven booth rotation: 0deg → 15deg over the first viewport.
+  // Scroll-driven booth rotation (the booth rotates as it scrolls into view).
   const booth = document.getElementById('booth3d');
-  const cover = document.querySelector('.cover');
 
-  // Folio update by section
   const folioNum = document.getElementById('folio-num');
   const folioLabel = document.getElementById('folio-label');
   const sections = [
     { el: document.querySelector('.cover'),           num: '01', label: '— The Cover —' },
     { el: document.getElementById('booth-showcase'),  num: '02', label: '— The Booth —' },
-    { el: document.getElementById('fidelity'),        num: '03', label: '— Fidelity —' },
-    { el: document.getElementById('instant'),         num: '04', label: '— Delivery —' },
-    { el: document.getElementById('archive'),         num: '05', label: '— Archive —' },
-    { el: document.getElementById('book'),            num: '06', label: '— Booking —' },
+    { el: document.getElementById('bullet-reel'),     num: '03', label: '— Highlights —' },
+    { el: document.getElementById('fidelity'),        num: '04', label: '— Fidelity —' },
+    { el: document.getElementById('instant'),         num: '05', label: '— Delivery —' },
+    { el: document.getElementById('archive'),         num: '06', label: '— Archive —' },
+    { el: document.getElementById('book'),            num: '07', label: '— Booking —' },
   ];
 
-  // Bullet reel — each bullet scales toward 1 as it nears viewport center.
   const bullets = document.querySelectorAll('.bullet-reel .cover-bullets > div');
 
-  // Scroll distance at which the booth's centre lines up with the viewport centre.
-  // Recomputed on load + resize; the rotation reaches t=1 here.
+  // Recompute the scroll distance at which the booth's centre lines up with the
+  // viewport centre. The rotation reaches t=1 at that point.
   let triggerEnd = window.innerHeight;
   function measure() {
     const prev = booth.style.transform;
@@ -414,14 +423,14 @@
     const y = window.scrollY;
     const vh = window.innerHeight;
 
-    // Booth rotation 0 → full as the booth scrolls to the vertical centre of the screen.
+    // Booth: 0 → full rotation as it scrolls to the vertical centre of the viewport.
     const t = Math.max(0, Math.min(1, y / triggerEnd));
-    const ry = t * -18;       // 0 → -30deg yaw (front swings left, reveals right side)
-    const rx = t * -6;        // 0 → -7deg pitch (open like a cover)
-    const tz = t * -15;       // pull back slightly
+    const ry = t * -22;
+    const rx = t * -6;
+    const tz = t * -20;
     booth.style.transform = `translate(-50%, ${t * -10}px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(${tz}px)`;
 
-    // Update folio based on which section is at viewport center.
+    // Folio
     const probe = y + vh / 2;
     let active = sections[0];
     for (const s of sections) {
@@ -435,10 +444,9 @@
     }
 
     // Bullet reel — proximity to viewport center → --p in [0, 1].
-    // Range is intentionally narrow so neighbors don't co-expand and steal
-    // attention from the focused bullet.
+    // Narrow range so neighbours don't co-expand and steal attention.
     const centerY = vh / 2;
-    const range = vh * 0.18;
+    const range = vh * 0.22;
     bullets.forEach(b => {
       const r = b.getBoundingClientRect();
       const bc = r.top + r.height / 2;
@@ -452,6 +460,12 @@
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => { measure(); onScroll(); });
+  // Re-measure once the booth-front image has loaded (its aspect drives layout).
+  const frontImg = document.querySelector('.booth-front img');
+  if (frontImg) {
+    if (frontImg.complete) measure();
+    else frontImg.addEventListener('load', () => { measure(); onScroll(); });
+  }
   measure();
   onScroll();
 </script>

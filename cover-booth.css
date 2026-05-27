@@ -1,12 +1,10 @@
 :root {
-  --paper: #ffffff;
+  --paper: #fdfcf7;
   --paper-2: #f4f4f3;
-  --paper-3: #e8e7e4;
   --ink: #0a0a08;
   --ink-2: #1c1c1a;
   --rule: #0a0a08;
   --accent: oklch(0.56 0.19 28);     /* editorial red */
-  --gold: oklch(0.68 0.09 75);
   --muted: #6b6b66;
 }
 
@@ -46,7 +44,7 @@ body::before {
   align-items: center;
   justify-content: space-between;
   padding: 14px 20px;
-  background: linear-gradient(#ffffff 70%, rgba(255,255,255,0));
+  background: linear-gradient(var(--paper) 70%, rgba(253,252,247,0));
 }
 .masthead .right {
   display: flex;
@@ -285,7 +283,6 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  border-top: 1px solid var(--rule);
 }
 .booth-showcase::before {
   content: "";
@@ -353,7 +350,7 @@ body::before {
 ══════════════════════════════════════════════════════════ */
 .bullet-reel {
   position: relative;
-  padding: 80px clamp(20px, 4vw, 48px) 50vh;
+  padding: 80px clamp(20px, 4vw, 48px) 18vh;
   border-top: 1px solid var(--rule);
 }
 .bullet-reel .cover-bullets {
@@ -420,7 +417,7 @@ body::before {
 .spread {
   position: relative;
   min-height: 100vh;
-  padding: 90px clamp(20px, 4vw, 48px) 80px;
+  padding: 50px clamp(20px, 4vw, 48px) 80px;
   border-top: 1px solid var(--rule);
 }
 .display-h {
@@ -800,6 +797,290 @@ body::before {
 /* Photo-area placeholder labels */
 .photo-area .ph-label { color: rgba(255,255,255,0.7); font-size: 9px; }
 
+/* ══════════════════════════════════════════════════════════
+   SKETCH MODE — wedding-planner mood-board overlay
+   Scoped to mobile (≤760px). Desktop/tablet renders plain
+   editorial layout — annotations + sketchbook chrome are off.
+══════════════════════════════════════════════════════════ */
+
+@media (max-width: 760px) {
+
+/* sketch annotation markup — invisible unless sketch-mode is on */
+.sketch-note,
+.sketch-circle,
+.sketch-stamp {
+  display: none;
+}
+
+/* handwritten font for marginalia */
+.sketch-note,
+.sketch-stamp {
+  font-family: "Caveat", "Bradley Hand", cursive;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.05;
+}
+
+body.sketch-mode .sketch-note,
+body.sketch-mode .sketch-circle,
+body.sketch-mode .sketch-stamp { display: block; }
+
+body.sketch-mode .sketch-note { display: inline-block; }
+
+/* hand-drawn wobble on display headlines + cover title */
+body.sketch-mode .display-h em,
+body.sketch-mode .booking .b-h em,
+body.sketch-mode .cover-title .booth-word em,
+body.sketch-mode .colophon .mark em,
+body.sketch-mode .infinity-mark .symbol {
+  filter: url(#sketch-rough);
+}
+
+/* Sketch-mode — the page reads as one continuous scrapbook page, so the
+   section-dividing borders are removed. Polaroid frames lose their stroke
+   too (the white card + shadow carries the form). */
+body.sketch-mode .bullet-reel,
+body.sketch-mode .spread,
+body.sketch-mode .booking,
+body.sketch-mode .colophon { border-top: none !important; border-bottom: none !important; }
+
+body.sketch-mode .cover-bullets,
+body.sketch-mode .cover-bullets > div,
+body.sketch-mode .s1-portrait,
+body.sketch-mode .masonry .tile { border: none !important; }
+
+body.sketch-mode .masonry .tile .lbl { border: none; }
+
+/* polaroid tilts on masonry tiles */
+body.sketch-mode .masonry .tile {
+  background: #fff;
+  padding: 8px 8px 26px;
+  box-shadow: 0 6px 16px rgba(20, 16, 8, 0.12), 0 1px 3px rgba(20, 16, 8, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+body.sketch-mode .masonry .tile:nth-child(5n+1) { transform: rotate(-1.4deg); }
+body.sketch-mode .masonry .tile:nth-child(5n+2) { transform: rotate(0.8deg); }
+body.sketch-mode .masonry .tile:nth-child(5n+3) { transform: rotate(-0.6deg); }
+body.sketch-mode .masonry .tile:nth-child(5n+4) { transform: rotate(1.6deg); }
+body.sketch-mode .masonry .tile:nth-child(5n+5) { transform: rotate(-1.1deg); }
+body.sketch-mode .masonry .tile:hover {
+  transform: rotate(0deg) scale(1.04);
+  box-shadow: 0 14px 28px rgba(20, 16, 8, 0.2);
+  z-index: 4;
+}
+body.sketch-mode .masonry .tile .lbl {
+  font-family: "Caveat", cursive;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  background: transparent;
+  border: none;
+  left: 12px;
+  bottom: 4px;
+  padding: 0;
+  color: var(--ink);
+}
+body.sketch-mode .masonry .tile .frame-no {
+  font-family: "Caveat", cursive;
+  font-style: normal;
+  font-size: 18px;
+  mix-blend-mode: normal;
+  color: var(--accent);
+  right: 10px;
+  top: 6px;
+}
+
+/* DRAFT stamp on the cover */
+.sketch-stamp {
+  position: absolute;
+  top: 110px;
+  right: clamp(20px, 5vw, 60px);
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--accent);
+  border: 2px dashed var(--accent);
+  padding: 6px 14px 4px;
+  transform: rotate(7deg);
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 5;
+}
+
+/* in-flow handwritten notes */
+.sketch-note {
+  font-family: "Caveat", cursive;
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 22px;
+  line-height: 1.1;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* cover note positioning */
+.cover .sketch-note.cover-note {
+  position: absolute;
+  font-size: 42px;
+  transform: rotate(-4deg);
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.05;
+  padding: 14px 18px 10px;
+}
+.cover .sketch-note.cover-note.left  { left: 14vw; top: 32vh; }
+.cover .sketch-note.cover-note.right { right: 14vw; top: 40vh; transform: rotate(5deg); }
+
+/* circle around "Booth" */
+.sketch-circle {
+  position: absolute;
+  pointer-events: none;
+  width: 120%;
+  height: 120%;
+  left: -10%;
+  top: -10%;
+}
+.sketch-circle svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.sketch-circle svg path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: url(#sketch-rough);
+  opacity: 0.85;
+}
+body.sketch-mode .cover-title .booth-word {
+  position: relative;
+  display: inline-block;
+}
+
+/* booth showcase margin notes */
+.booth-showcase .sketch-note.bs-note {
+  position: absolute;
+  font-size: 24px;
+  z-index: 4;
+}
+.booth-showcase .sketch-note.bs-note.tl { top: 24px;  left: 5vw;  transform: rotate(-3deg); }
+.booth-showcase .sketch-note.bs-note.br { bottom: 40px; right: 5vw; transform: rotate(2deg);  max-width: 220px; text-align: right; }
+
+/* booking — handwritten urgency */
+.booking .sketch-note.bk-note {
+  font-family: "Caveat", cursive;
+  font-size: 22px;
+  color: var(--accent);
+  margin-top: 8px;
+  display: block;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+}
+
+/* checkmark next to bullet "Unlimited Frames" etc */
+body.sketch-mode .cover-bullets .t .h::after {
+  content: " ✓";
+  color: var(--accent);
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+  font-size: 0.9em;
+  filter: url(#sketch-rough);
+}
+
+} /* end @media (max-width: 760px) — sketch-mode block */
+
+@media (max-width: 760px) {
+  /* Floating margin notes — keep them visible on mobile but anchor to the
+     viewport edges with smaller type so they don't fight the central content. */
+  .cover .sketch-note.cover-note {
+    font-size: 14px;
+    max-width: 160px;
+    line-height: 1.15;
+    padding: 10px 12px 6px;
+  }
+  .cover .sketch-note.cover-note.left  {
+    left: 14px;
+    top: 130px;
+    transform: rotate(-6deg);
+    text-align: left;
+  }
+  .cover .sketch-note.cover-note.right {
+    right: 14px;
+    top: auto;
+    bottom: 30px;
+    transform: rotate(5deg);
+    text-align: right;
+  }
+  .booth-showcase .sketch-note.bs-note { font-size: 15px; max-width: 130px; line-height: 1.15; }
+  .booth-showcase .sketch-note.bs-note.tl { top: 20px;  left: 14px; }
+  .booth-showcase .sketch-note.bs-note.br { bottom: 1px; right: 14px; }
+
+  /* Bullet-reel notes are removed entirely in sketch mode (see above), so
+     no positioning needed here. */
+
+  /* DRAFT stamp shrinks to a corner */
+  .sketch-stamp {
+    font-size: 18px;
+    top: 70px;
+    right: 16px;
+    left: auto;
+    padding: 4px 10px 2px;
+  }
+
+  /* Booking note tightens */
+  .booking .sketch-note.bk-note { font-size: 20px; line-height: 1.2; }
+
+  /* Booth-word circle scales down with the title */
+  body.sketch-mode .cover-title .booth-word .sketch-circle svg path {
+    stroke-width: 5;
+  }
+
+  /* Scrapbook tape over the "Magazine" word — mobile only */
+  .cover-title .cover-word {
+    display: inline-block;
+    position: relative;
+  }
+  body.sketch-mode .cover-title .cover-word::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -18px;
+    width: 80px;
+    height: 20px;
+    background: rgba(245, 220, 130, 0.55);
+    transform: rotate(-30deg);
+    transform-origin: left center;
+    border-left: 1px dashed rgba(0,0,0,0.05);
+    border-right: 1px dashed rgba(0,0,0,0.05);
+    z-index: 3;
+    pointer-events: none;
+  }
+  body.sketch-mode .cover-title .cover-word::after {
+    content: "";
+    position: absolute;
+    bottom: -50px;
+    right: -18px;
+    width: 80px;
+    height: 20px;
+    background: rgba(245, 220, 130, 0.55);
+    transform: rotate(-40deg);
+    transform-origin: right center;
+    border-left: 1px dashed rgba(0,0,0,0.05);
+    border-right: 1px dashed rgba(0,0,0,0.05);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* Reduce polaroid tilt — looks crowded on narrow columns */
+  body.sketch-mode .masonry .tile:nth-child(5n+1) { transform: rotate(-0.8deg); }
+  body.sketch-mode .masonry .tile:nth-child(5n+2) { transform: rotate(0.5deg); }
+  body.sketch-mode .masonry .tile:nth-child(5n+3) { transform: rotate(-0.4deg); }
+  body.sketch-mode .masonry .tile:nth-child(5n+4) { transform: rotate(0.9deg); }
+  body.sketch-mode .masonry .tile:nth-child(5n+5) { transform: rotate(-0.7deg); }
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 1280px) {
   .masonry { columns: 4; }
@@ -866,6 +1147,12 @@ body::before {
 }
 
 @media (max-width: 460px) {
+  /* Hand-written notes shrink further on very narrow phones */
+  .cover .sketch-note.cover-note { font-size: 22px; max-width: 130px; padding: 8px 10px 4px; }
+  .booth-showcase .sketch-note.bs-note { font-size: 20px; max-width: 110px; }
+  .booking .sketch-note.bk-note { font-size: 18px; }
+  .sketch-stamp { font-size: 16px; top: 64px; }
+
   .cover-title { font-size: clamp(56px, 18vw, 110px); }
   .phone-stack { height: 440px; }
   .phone { width: 150px; }
