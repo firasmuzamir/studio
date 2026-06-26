@@ -87,26 +87,23 @@
 
 <!-- ============================================================
      BEAT 3 — POV FOOTAGE
-     Image asset: assets/photos/pov-main.jpg
+     Video asset: assets/videos/SCORING.MP4  (portrait clip, sole visual)
      ============================================================ -->
 <section class="stage gear-beat" data-beat="1" data-screen-label="04 POV Footage">
   <div class="track">
     <div class="pin">
       <div class="scene">
         <div class="gear-rail" aria-hidden="true"></div>
-        <div class="gear-card from-left" id="card-actioncam">
+        <div class="gear-card from-left pov-card" id="card-actioncam">
           <div class="gear-copy">
             <div class="gear-kicker">POV add-on</div>
             <h2 class="gear-headline">POV<br/>FOOTAGE<br/><span class="num">WITH DJI NANO</span></h2>
             <p class="gear-sub">First-person chest-strap. Feel the run before you see it.</p>
           </div>
-          <div class="gear-visual">
-            <img class="gear-photo" src="assets/photos/pov-main.jpg" alt="Chest-mounted action cam on a cyclist's jersey" loading="lazy" />
-          </div>
-          <div class="samples" aria-hidden="true">
-            <div class="sample">CLIP 01</div>
-            <div class="sample">CLIP 02</div>
-            <div class="sample">CLIP 03</div>
+          <div class="samples samples-single" aria-hidden="true">
+            <div class="sample sample-clip">
+              <video class="sample-video" src="assets/videos/SCORING.MP4" autoplay muted loop playsinline></video>
+            </div>
           </div>
         </div>
       </div>
@@ -131,11 +128,12 @@
             <div class="gear-kicker">Full Game Recording</div>
             <h2 class="gear-headline">FULL<br/>GAMEPLAY<br/><span class="num">RECORDED WITH AI!</span></h2>
             <p class="gear-sub">Whistle to whistle. Tagged by half &amp; possession. Yours forever.</p>
+            <p class="gear-sub">Uploaded to <span class="yt"><span class="yt-you">You</span>Tube</span></p>
           </div>
-          <div class="samples" aria-hidden="true">
-            <div class="sample">H1 0:00</div>
-            <div class="sample">H2 45:00</div>
-            <div class="sample">HILITES</div>
+          <div class="samples samples-shot" aria-hidden="true">
+            <div class="sample sample-shot">
+              <img src="assets/photos/youtube-example.png" alt="Full match uploaded to YouTube" loading="lazy" />
+            </div>
           </div>
         </div>
       </div>
@@ -175,14 +173,14 @@
         <span class="pkg-price">RM140</span>
       </label>
       <label>
-        <input type="checkbox" name="pkg" value="POV" data-price="20" />
+        <input type="checkbox" name="pkg" value="POV" data-price="30" />
         <span>POV</span>
-        <span class="pkg-price">RM20</span>
+        <span class="pkg-price">RM30</span>
       </label>
       <label>
-        <input type="checkbox" name="pkg" value="Full AI Coverage" data-price="90" />
+        <input type="checkbox" name="pkg" value="Full AI Coverage" data-price="100" />
         <span>Full AI<br/>Coverage</span>
-        <span class="pkg-price">RM90</span>
+        <span class="pkg-price">RM100</span>
       </label>
     </fieldset>
     <div class="booking-row booking-total">
@@ -195,7 +193,7 @@
     </button>
   </form>
 
-  <div class="cta-secondary">or @sifutangkap on instagram</div>
+  <div class="cta-secondary">or @sifutangkapstudios on instagram</div>
 </section>
 
 <footer class="footer">
@@ -205,9 +203,9 @@
     <span>Klang Valley · KL · Selangor</span>
   </div>
   <div class="footer-row footer-handles">
-    <a href="#">@sifutangkap</a>
-    <a href="#">tiktok / @sifutangkap</a>
-    <a href="#">wa.me / +60192170515</a>
+    <a href="#">@sifutangkapstudios</a>
+    <a href="#">tiktok / @sifutangkapstudios</a>
+    <a href="#">wa.me / +60197790361</a>
   </div>
   <div class="footer-row footer-meta">EN · BM · usually replies in 2 hrs</div>
 </footer>
@@ -300,7 +298,7 @@
        Replace `phone` with the real WhatsApp business number.
        Format: country code + number, no `+`, no spaces.
        ============================================================ */
-    const phone = '60192170515';
+    const phone = '60197790361';
 
     const form     = document.getElementById('booking-form');
     const totalEl  = document.getElementById('bk-total');

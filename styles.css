@@ -12,6 +12,7 @@
   --dim:       #666;      /* tertiary text */
   --accent:    #4ade80;   /* signature green */
   --accent-dim:#166534;   /* darker green (kept for theming) */
+  --youtube:   #ff0000;   /* YouTube brand red */
 
   /* Type stack */
   --display: "Bebas Neue", Impact, "Arial Narrow Bold", sans-serif;
@@ -304,6 +305,10 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   font-size: 14px;
   max-width: 36ch;
 }
+/* "Uploaded to YouTube" — base copy stays muted grey; the YouTube wordmark is
+   bold + slightly larger, with "You" in brand red and "Tube" in white. */
+.gear-sub .yt     { font-weight: 700; font-size: 1.2em; color: var(--fg); }
+.gear-sub .yt-you { color: var(--youtube); }
 
 /* sample-thumbnails strip — fades in once the card "locks" centered */
 .samples {
@@ -339,6 +344,73 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   background: var(--bg-2);
   object-fit: cover;
   object-position: center;
+}
+
+/* POV section: vertical footage clip. Sized by height so a portrait
+   aspect doesn't overflow the .scene's 100svh pin. */
+.samples.samples-single {
+  grid-template-columns: 1fr;
+  opacity: 1;               /* stay visible so the grow-in is seen */
+  transform: none;
+  transition: none;
+}
+.sample.sample-clip {
+  aspect-ratio: 280 / 608;        /* match the vertical SCORING.MP4 */
+  width: auto;
+  height: min(58svh, 480px);
+  justify-self: center;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  background: var(--bg-2);
+  /* grow from small → full as the card scrolls to center (--p: 0→1, set by JS) */
+  transform: scale(calc(0.25 + 0.75 * var(--p, 1)));
+  transform-origin: center;
+}
+.sample-clip .sample-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Full-gameplay beat: a single YouTube screenshot — centered and noticeably
+   larger than the default 3-up thumbnail strip. Height-driven (like the POV
+   clip) so it scales with the viewport and won't overflow the pinned scene. */
+.samples.samples-shot { grid-template-columns: 1fr; }   /* one column, not 3 */
+.sample.sample-shot {
+  aspect-ratio: 946 / 691;        /* match youtube-example.png */
+  height: min(30svh, 240px);      /* smaller overall */
+  width: auto;
+  max-width: 100%;                /* never overflow the column on mobile */
+  justify-self: center;           /* center within the strip */
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  background: var(--bg-2);
+}
+.sample-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;            /* show the full picture, no cropping */
+  object-position: center;
+  display: block;
+}
+
+/* POV beat layout — no static photo, so the portrait clip is the sole visual.
+   On desktop it sits beside the copy and is vertically centered, so the video
+   lands in the MIDDLE of the screen while the beat is pinned (instead of
+   stacking below the copy and settling near the bottom). On mobile it falls
+   back to the stacked layout, sitting just below the headline. */
+@media (min-width: 760px) {
+  .pov-card .gear-copy { align-self: center; }
+  .pov-card .samples.samples-single {
+    grid-column: 2;        /* beside the copy, not full-width below it */
+    order: 0;              /* keep copy (col 1) → video (col 2) order */
+    align-self: center;    /* vertical-center the clip in its column */
+    margin-top: 0;
+  }
 }
 
 /* =====================================================================
@@ -583,4 +655,5 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   .pin               { position: relative !important; height: 100svh; }
   .gear-card         { transform: none !important; }
   .gear-card .samples { opacity: 1 !important; transform: none !important; }
+  .sample.sample-clip { transform: none !important; }  /* skip grow-in */
 }
