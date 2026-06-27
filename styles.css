@@ -210,6 +210,13 @@ img, svg { display: block; max-width: 100%; }
 body.mode-smooth .track { height: auto; min-height: 100svh; }
 body.mode-smooth .pin   { position: relative; height: 100svh; }
 
+/* Beat 2 (stills) runs longer than the other beats so its spotlight
+   sub-sequence (outer thumbs slide up/away while the middle thumb grows)
+   has room to play out before the pin releases into Beat 3. */
+[data-beat="0"] .track { height: 230vh; }
+/* Smooth mode drops the pin, so skip the scroll-driven spotlight there. */
+body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
+
 /* =====================================================================
    9. BEATS 2–4 — GEAR CARDS  (stills, POV, full broadcast)
    - .gear-card.from-right / .from-left  : slide direction.
@@ -344,6 +351,24 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   background: var(--bg-2);
   object-fit: cover;
   object-position: center;
+}
+
+/* Beat 2 (stills) — "spotlight" sub-sequence. After the three thumbnails
+   reveal, continued scrolling within the beat slides the outer two up and
+   away while the middle one grows ~50%. Driven by --grow (0→1), which JS sets
+   from the beat's later scroll progress (see updateStillsSpotlight). */
+#card-player { --grow: 0; }
+#card-player .sample-photo { transition: none; will-change: transform, opacity; }
+#card-player .sample-photo:nth-child(2) {
+  transform: scale(calc(1 + 1 * var(--grow)));   /* middle: grow ~50% */
+  transform-origin: center;
+  position: relative;
+  z-index: 2;                                       /* grow over the outer thumbs */
+}
+#card-player .sample-photo:nth-child(1),
+#card-player .sample-photo:nth-child(3) {
+  transform: translateY(calc(var(--grow) * -160%)); /* outer: slide up */
+  opacity: calc(1 - var(--grow));                   /* …and fade out */
 }
 
 /* POV section: vertical footage clip. Sized by height so a portrait
@@ -629,6 +654,7 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
 
   /* slow each beat down on desktop (more pixels of scroll per beat) */
   .track            { height: 220vh; }
+  [data-beat="0"] .track { height: 320vh; }   /* extra room for the spotlight */
 
   /* gear cards: photo + copy side by side, samples full-width below */
   .gear-card {
@@ -656,4 +682,5 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
   .gear-card         { transform: none !important; }
   .gear-card .samples { opacity: 1 !important; transform: none !important; }
   .sample.sample-clip { transform: none !important; }  /* skip grow-in */
+  #card-player .sample-photo { transform: none !important; opacity: 1 !important; }
 }

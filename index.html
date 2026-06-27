@@ -168,19 +168,19 @@
     <fieldset class="booking-row booking-pkg">
       <legend class="booking-label">Package (pick any)</legend>
       <label>
-        <input type="checkbox" name="pkg" value="Stills" data-price="140" checked />
+        <input type="checkbox" name="pkg" value="Stills" data-price="139" checked />
         <span>Stills</span>
-        <span class="pkg-price">RM140</span>
+        <span class="pkg-price">RM139</span>
       </label>
       <label>
-        <input type="checkbox" name="pkg" value="POV" data-price="30" />
+        <input type="checkbox" name="pkg" value="POV" data-price="29" />
         <span>POV</span>
-        <span class="pkg-price">RM30</span>
+        <span class="pkg-price">RM29</span>
       </label>
       <label>
-        <input type="checkbox" name="pkg" value="Full AI Coverage" data-price="100" />
+        <input type="checkbox" name="pkg" value="Full AI Coverage" data-price="99" />
         <span>Full AI<br/>Coverage</span>
-        <span class="pkg-price">RM100</span>
+        <span class="pkg-price">RM99</span>
       </label>
     </fieldset>
     <div class="booking-row booking-total">
@@ -274,6 +274,20 @@
       });
     }
 
+    /* ---------- Beat 2 (stills) spotlight ----------
+       Once the thumbnails have revealed, the beat's later scroll range
+       (GROW_START → GROW_END of the track) slides the outer two thumbs up and
+       away while the middle one grows. --grow (0→1) drives the CSS; the
+       remaining scroll after GROW_END is a buffer before the pin releases. */
+    const stillsStage = document.querySelector('[data-beat="0"]');
+    const GROW_START = 0.30, GROW_END = 0.78;
+    function updateStillsSpotlight() {
+      if (!stillsStage || !cards[0]) return;
+      const tp = trackProgress(stillsStage);
+      const q  = smooth(clamp((tp - GROW_START) / (GROW_END - GROW_START), 0, 1));
+      cards[0].style.setProperty('--grow', q.toFixed(3));
+    }
+
     /* ---------- right-edge rail ---------- */
     function updateRail() {
       let activeIdx = -1, bestScore = -1;
@@ -290,6 +304,7 @@
     /* ---------- main per-frame update ---------- */
     function update() {
       updateGearCards();
+      updateStillsSpotlight();
       updateRail();
     }
 
