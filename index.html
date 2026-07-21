@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -115,7 +115,7 @@
      BEAT 4 — FULL GAMEPLAY
      Image asset: assets/photos/xbotgo.jpg
      ============================================================ -->
-<section class="stage gear-beat" data-beat="2" data-screen-label="05 Full Gameplay">
+<section class="stage gear-beat final-stage" data-beat="2" data-screen-label="05 Full Gameplay">
   <div class="track">
     <div class="pin">
       <div class="scene">
@@ -284,9 +284,26 @@
     }
     function updateGearCards() {
       [0, 1, 2].forEach((stageIdx, cardIdx) => {
+        const stage = stages[stageIdx];
         const card = cards[cardIdx];
-        if (!card) return;
-        const v = smooth(cardEnterProgress(card));
+        if (!stage || !card) return;
+
+        /*
+          IMPORTANT: derive animation progress from the stage/track, not from
+          the transformed card itself. Measuring a transformed card and then
+          changing that transform creates a feedback loop that can jitter.
+        */
+        let raw;
+
+        if (stage.classList.contains('final-stage')) {
+          const rect = stage.getBoundingClientRect();
+          const vh = window.innerHeight;
+          raw = clamp((vh - rect.top) / Math.max(1, vh * 0.72), 0, 1);
+        } else {
+          raw = clamp(trackProgress(stage) / 0.34, 0, 1);
+        }
+
+        const v = smooth(raw);
         card.style.setProperty('--p', v.toFixed(3));
         card.classList.toggle('is-locked', v >= 0.95);
       });
