@@ -1,5 +1,5 @@
 /* =====================================================================
-   1. DESIGN TOKENS  —  retheme the whole site from here
+   1. DESIGN TOKENS  â€”  retheme the whole site from here
    ===================================================================== */
 :root {
   /* Palette */
@@ -55,7 +55,7 @@ img, svg { display: block; max-width: 100%; }
 }
 
 /* =====================================================================
-   4. TOP BAR  —  fixed header (brand + sound toggle + book CTA)
+   4. TOP BAR  â€”  fixed header (brand + sound toggle + book CTA)
    ===================================================================== */
 .topbar {
   position: fixed;
@@ -94,7 +94,7 @@ img, svg { display: block; max-width: 100%; }
 }
 
 /* =====================================================================
-   5. SCROLL PROGRESS RAIL  —  one dot per beat (right edge)
+   5. SCROLL PROGRESS RAIL  â€”  one dot per beat (right edge)
    ===================================================================== */
 .rail {
   position: fixed;
@@ -126,7 +126,7 @@ img, svg { display: block; max-width: 100%; }
 }
 
 /* =====================================================================
-   6. HERO  (Beat 0)  —  full-viewport title screen
+   6. HERO  (Beat 0)  â€”  full-viewport title screen
    ===================================================================== */
 .hero {
   min-height: 100svh;
@@ -147,7 +147,7 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 18px;
 }
 .hero-eyebrow::before, .hero-eyebrow::after {
-  content: "—";
+  content: "â€”";
   margin: 0 10px;
   color: var(--dim);
 }
@@ -188,7 +188,7 @@ img, svg { display: block; max-width: 100%; }
 }
 
 /* =====================================================================
-   7. PINNED SCROLL STAGE  —  shared layout for all scroll-driven beats
+   7. PINNED SCROLL STAGE  â€”  shared layout for all scroll-driven beats
    - .track is a tall scroll-track; longer track = beat lasts longer.
    - .pin sticks the visual to the viewport while the track scrolls past.
    - body.mode-smooth (Tweaks panel) drops sticky behavior so beats
@@ -197,7 +197,7 @@ img, svg { display: block; max-width: 100%; }
 .stage { position: relative; }
 .track {
   position: relative;
-  height: 160vh;             /* mobile-first; desktop overrides below */
+  height: 160svh;             /* mobile-first; desktop overrides below */
 }
 .pin {
   position: sticky;
@@ -213,15 +213,15 @@ body.mode-smooth .pin   { position: relative; height: 100svh; }
 /* Beat 2 (stills) runs longer than the other beats so its spotlight
    sub-sequence (outer thumbs slide up/away while the middle thumb grows)
    has room to play out before the pin releases into Beat 3. */
-[data-beat="0"] .track { height: 230vh; }
+[data-beat="0"] .track { height: 230svh; }
 /* Smooth mode drops the pin, so skip the scroll-driven spotlight there. */
 body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
 
 /* =====================================================================
-   9. BEATS 2–4 — GEAR CARDS  (stills, POV, full broadcast)
+   9. BEATS 2â€“4 â€” GEAR CARDS  (stills, POV, full broadcast)
    - .gear-card.from-right / .from-left  : slide direction.
    - .gear-card.text-right               : on desktop, copy lands right.
-   - --p (0→1) is set by JS based on track progress (drives translate).
+   - --p (0â†’1) is set by JS based on track progress (drives translate).
    - Desktop layout: photo + copy in row 1, samples row 2 full-width.
    ===================================================================== */
 .gear-beat .scene {
@@ -312,12 +312,12 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
   font-size: 14px;
   max-width: 36ch;
 }
-/* "Uploaded to YouTube" — base copy stays muted grey; the YouTube wordmark is
+/* "Uploaded to YouTube" â€” base copy stays muted grey; the YouTube wordmark is
    bold + slightly larger, with "You" in brand red and "Tube" in white. */
 .gear-sub .yt     { font-weight: 700; font-size: 1.2em; color: var(--fg); }
 .gear-sub .yt-you { color: var(--youtube); }
 
-/* sample-thumbnails strip — fades in once the card "locks" centered */
+/* sample-thumbnails strip â€” fades in once the card "locks" centered */
 .samples {
   margin-top: 14px;
   display: grid;
@@ -353,9 +353,9 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
   object-position: center;
 }
 
-/* Beat 2 (stills) — "spotlight" sub-sequence. After the three thumbnails
+/* Beat 2 (stills) â€” "spotlight" sub-sequence. After the three thumbnails
    reveal, continued scrolling within the beat slides the outer two up and
-   away while the middle one grows ~50%. Driven by --grow (0→1), which JS sets
+   away while the middle one grows ~50%. Driven by --grow (0â†’1), which JS sets
    from the beat's later scroll progress (see updateStillsSpotlight). */
 #card-player { --grow: 0; }
 #card-player .sample-photo { transition: none; will-change: transform, opacity; }
@@ -368,7 +368,7 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
 #card-player .sample-photo:nth-child(1),
 #card-player .sample-photo:nth-child(3) {
   transform: translateY(calc(var(--grow) * -160%)); /* outer: slide up */
-  opacity: calc(1 - var(--grow));                   /* …and fade out */
+  opacity: calc(1 - var(--grow));                   /* â€¦and fade out */
 }
 
 /* POV section: vertical footage clip. Sized by height so a portrait
@@ -388,7 +388,7 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
   overflow: hidden;
   border: 1px solid var(--line-2);
   background: var(--bg-2);
-  /* grow from small → full as the card scrolls to center (--p: 0→1, set by JS) */
+  /* grow from small â†’ full as the card scrolls to center (--p: 0â†’1, set by JS) */
   transform: scale(calc(0.25 + 0.75 * var(--p, 1)));
   transform-origin: center;
 }
@@ -400,7 +400,7 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
   display: block;
 }
 
-/* Full-gameplay beat: a single YouTube screenshot — centered and noticeably
+/* Full-gameplay beat: a single YouTube screenshot â€” centered and noticeably
    larger than the default 3-up thumbnail strip. Height-driven (like the POV
    clip) so it scales with the viewport and won't overflow the pinned scene. */
 .samples.samples-shot { grid-template-columns: 1fr; }   /* one column, not 3 */
@@ -423,7 +423,7 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
   display: block;
 }
 
-/* POV beat layout — no static photo, so the portrait clip is the sole visual.
+/* POV beat layout â€” no static photo, so the portrait clip is the sole visual.
    On desktop it sits beside the copy and is vertically centered, so the video
    lands in the MIDDLE of the screen while the beat is pinned (instead of
    stacking below the copy and settling near the bottom). On mobile it falls
@@ -432,7 +432,7 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
   .pov-card .gear-copy { align-self: center; }
   .pov-card .samples.samples-single {
     grid-column: 2;        /* beside the copy, not full-width below it */
-    order: 0;              /* keep copy (col 1) → video (col 2) order */
+    order: 0;              /* keep copy (col 1) â†’ video (col 2) order */
     align-self: center;    /* vertical-center the clip in its column */
     margin-top: 0;
   }
@@ -441,7 +441,7 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
 /* =====================================================================
    10. CTA + BOOKING FORM
    Submit prefills a WhatsApp message via wa.me deep link.
-   Update the phone number in <script> below — search `const phone`.
+   Update the phone number in <script> below â€” search `const phone`.
    ===================================================================== */
 .cta {
   min-height: 100svh;
@@ -698,15 +698,15 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
 .footer-meta { opacity: 0.7; }
 
 /* =====================================================================
-   12. RESPONSIVE OVERRIDES (≥760px)
+   12. RESPONSIVE OVERRIDES (â‰¥760px)
    Tweak the breakpoint here if you need a wider mobile band.
    ===================================================================== */
 @media (min-width: 760px) {
   body { font-size: 16px; }
 
   /* slow each beat down on desktop (more pixels of scroll per beat) */
-  .track            { height: 220vh; }
-  [data-beat="0"] .track { height: 320vh; }   /* extra room for the spotlight */
+  .track            { height: 220svh; }
+  [data-beat="0"] .track { height: 320svh; }   /* extra room for the spotlight */
 
   /* gear cards: photo + copy side by side, samples full-width below */
   .gear-card {
@@ -726,7 +726,7 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
 }
 
 /* =====================================================================
-   13. REDUCED MOTION  —  snap everything to its final state
+   13. REDUCED MOTION  â€”  snap everything to its final state
    ===================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .track             { height: auto !important; min-height: 100svh; }
@@ -739,27 +739,62 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
 
 
 /* =====================================================================
-   FIX: Prevent sticky sections overlapping the CTA/footer
+   STABLE STICKY-TO-BOOKING TRANSITION
+   Keep the final pinned stage and booking section in normal paint order.
    ===================================================================== */
 .stage {
   position: relative;
-  z-index: 0;
-  isolation: isolate;
+  z-index: auto;
 }
 
 .pin {
-  z-index: 0;
+  z-index: auto;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .cta {
   position: relative;
-  z-index: 2;
-  isolation: isolate;
+  z-index: auto;
   background: var(--bg);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .footer {
   position: relative;
-  z-index: 2;
+  z-index: auto;
   background: var(--bg);
+}
+
+/* Use one stable viewport measurement throughout the pinned sequence.
+   This prevents mobile browser toolbars from moving the sticky release point. */
+@supports (height: 100svh) {
+  .track {
+    height: 160svh;
+  }
+
+  [data-beat="0"] .track {
+    height: 230svh;
+  }
+
+  .pin,
+  body.mode-smooth .pin {
+    height: 100svh;
+  }
+
+  body.mode-smooth .track {
+    min-height: 100svh;
+  }
+
+  @media (min-width: 760px) {
+    .track {
+      height: 220svh;
+    }
+
+    [data-beat="0"] .track {
+      height: 320svh;
+    }
+  }
 }
