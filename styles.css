@@ -587,19 +587,71 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
   font-size: 12px;
   cursor: pointer;
   text-align: center;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.booking-pkg label:hover {
+  transform: translateY(-1px);
+  border-color: var(--line-2);
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.08);
 }
 .booking-pkg input { accent-color: var(--accent); }
 .booking-pkg .pkg-price {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   font-family: var(--mono);
   font-size: 11px;
   color: var(--muted);
   letter-spacing: 0.04em;
 }
+.booking-pkg .price-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.booking-pkg .old-price {
+  position: relative;
+  color: rgba(255,255,255,0.4);
+  font-size: 10px;
+  text-decoration: line-through;
+  text-decoration-thickness: 1.2px;
+  text-decoration-color: rgba(255,255,255,0.45);
+}
+.booking-pkg .new-price {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 12px;
+}
+.booking-pkg .promo-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.24), rgba(74, 222, 128, 0.12));
+  border: 1px solid rgba(74, 222, 128, 0.42);
+  color: var(--accent);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.08), 0 4px 10px rgba(74, 222, 128, 0.12);
+}
 .booking-pkg label:has(input:checked) {
   border-color: var(--accent);
   color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.16), 0 8px 24px rgba(74, 222, 128, 0.12);
 }
 .booking-pkg label:has(input:checked) .pkg-price { color: var(--accent); }
+.booking-pkg label:has(input:checked) .promo-pill {
+  background: rgba(74, 222, 128, 0.24);
+  border-color: var(--accent);
+  color: #fff;
+}
 
 /* live total row */
 .booking-total {
