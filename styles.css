@@ -736,3 +736,30 @@ body.mode-smooth #card-player .sample-photo { transform: none; opacity: 1; }
   .sample.sample-clip { transform: none !important; }  /* skip grow-in */
   #card-player .sample-photo { transform: none !important; opacity: 1 !important; }
 }
+
+
+/* =====================================================================
+   FIX: Prevent sticky sections overlapping the CTA/footer
+   ===================================================================== */
+.stage {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+}
+
+.pin {
+  z-index: 0;
+}
+
+.cta {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+  background: var(--bg);
+}
+
+.footer {
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
+}
