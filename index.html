@@ -257,6 +257,33 @@
     const clamp  = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
     const smooth = (t) => t * t * (3 - 2 * t); // smoothstep ease
 
+    /* ---------- stable viewport height ----------
+       The CSS sizes .track and .pin in `svh` — the viewport as it is WITH the
+       mobile URL bar showing — which stays constant while that bar hides and
+       shows. window.innerHeight does NOT: it grows toward `lvh` as the bar
+       retracts. Measuring progress against innerHeight while the layout is
+       sized in svh makes every value drift as the bar animates, with no actual
+       scrolling — that is the jitter when scrolling up. (Scrolling down only
+       retracts the bar once, after which innerHeight sits still, which is why
+       it felt fine in that direction.)
+
+       So read 100svh off a probe element and let the JS agree with the CSS.
+       svh only changes on a real resize / orientation change, so this is
+       cached and refreshed there. */
+    const svhProbe = document.createElement('div');
+    svhProbe.setAttribute('aria-hidden', 'true');
+    svhProbe.style.cssText =
+      'position:absolute;top:0;left:0;width:0;height:100svh;' +
+      'visibility:hidden;pointer-events:none;';
+    document.body.appendChild(svhProbe);
+
+    let viewH = 0;
+    function measureViewport() {
+      // Browsers without `svh` collapse the probe to 0 — fall back to innerHeight.
+      viewH = svhProbe.getBoundingClientRect().height || window.innerHeight;
+    }
+    measureViewport();
+
     /* ---------- per-stage scroll progress ----------
        Returns 0 → 1 across a stage's track:
          0 = track top hits viewport top
@@ -264,7 +291,7 @@
     function trackProgress(stage) {
       const track = stage.querySelector('.track');
       const r = track.getBoundingClientRect();
-      const vh = window.innerHeight;
+      const vh = viewH;
       const total = Math.max(1, r.height - vh);
       return clamp(-r.top / total, 0, 1);
     }
@@ -277,7 +304,7 @@
        .is-locked triggers the sample-strip fade-in. */
     function cardEnterProgress(card) {
       const r = card.getBoundingClientRect();
-      const vh = window.innerHeight;
+      const vh = viewH;
       const startY = vh;                       // card top at viewport bottom → p=0
       const endY   = vh / 2 - r.height / 2;    // card center at viewport middle → p=1
       const total  = Math.max(1, startY - endY);
@@ -298,7 +325,7 @@
 
         if (stage.classList.contains('final-stage')) {
           const rect = stage.getBoundingClientRect();
-          const vh = window.innerHeight;
+          const vh = viewH;
           raw = clamp((vh - rect.top) / Math.max(1, vh * 0.72), 0, 1);
         } else {
           raw = clamp(trackProgress(stage) / 0.34, 0, 1);
@@ -329,7 +356,7 @@
       let activeIdx = -1, bestScore = -1;
       stages.forEach((s, i) => {
         const r = s.getBoundingClientRect();
-        const vh = window.innerHeight;
+        const vh = viewH;
         const center = r.top + r.height / 2;
         const score  = 1 - Math.min(1, Math.abs(center - vh / 2) / vh);
         if (score > bestScore) { bestScore = score; activeIdx = i; }
@@ -398,7 +425,7 @@
       raf = requestAnimationFrame(() => { raf = 0; update(); });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    window.addEventListener('resize', () => { measureViewport(); onScroll(); });
     update();
   })();
 </script>

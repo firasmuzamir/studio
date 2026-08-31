@@ -129,9 +129,6 @@
   </p>
 
   <div class="s1-grid">
-    <!-- Fills the grid's second column, which was empty.
-         Clip is 1036x1842 (9:16) — .s1-clip is sized to that ratio so it
-         plays uncropped. Muted so browsers allow autoplay. -->
     <div class="s1-right">
       <figure class="s1-clip">
         <video
@@ -462,17 +459,21 @@
     const tz = t * -20;
     booth.style.transform = `translate(-50%, ${t * -10}px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(${tz}px)`;
 
-    // Folio
-    const probe = y + vh / 2;
-    let active = sections[0];
-    for (const s of sections) {
-      if (!s.el) continue;
-      const top = s.el.offsetTop;
-      if (probe >= top) active = s;
-    }
-    if (folioNum.textContent !== active.num) {
-      folioNum.textContent = active.num;
-      folioLabel.textContent = active.label;
+    // Folio — the markup is currently commented out, so these can be null.
+    // Guard them: an unguarded throw here aborts onScroll before the
+    // bullet-reel update below ever runs, freezing the reel at --p: 0.
+    if (folioNum && folioLabel) {
+      const probe = y + vh / 2;
+      let active = sections[0];
+      for (const s of sections) {
+        if (!s.el) continue;
+        const top = s.el.offsetTop;
+        if (probe >= top) active = s;
+      }
+      if (folioNum.textContent !== active.num) {
+        folioNum.textContent = active.num;
+        folioLabel.textContent = active.label;
+      }
     }
 
     // Bullet reel — proximity to viewport center → --p in [0, 1].

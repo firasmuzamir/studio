@@ -33,6 +33,20 @@
   a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
   @keyframes hub-breathe { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
 
+  /* Landing flourish: the mark spins up fast and coasts to a dead stop.
+     4 turns (1440deg = 4 x 360) so it lands perfectly upright, and an
+     expo-out curve so most of the rotation is spent in the first ~20% of
+     the duration — reads as a hard spin bleeding off, not a linear turn.
+     Runs once; `both` holds the final frame. */
+  @keyframes hub-logo-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(1440deg); }
+  }
+  .hub-logo {
+    animation: hub-logo-spin 3.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform;
+  }
+
   /* Mirrors the style-hover / style-active attributes on the three wedges
      so they respond without the DC runtime. Same values, so having both is a no-op. */
   main a:hover  { background: rgba(145,132,217,0.10) !important; }
@@ -96,7 +110,7 @@
       </div>
 
       <div style="position: absolute; inset: 22%; display: grid; place-items: center; pointer-events: none;">
-        <img src="assets/logotrans.png" alt="Sifu Tangkap Studios" style="position: relative; width: 86%; mix-blend-mode: lighten; user-select: none;" />
+        <img class="hub-logo" src="assets/logotrans.png" alt="Sifu Tangkap Studios" style="position: relative; width: 86%; mix-blend-mode: lighten; user-select: none;" />
       </div>
     </div>
   </main>
