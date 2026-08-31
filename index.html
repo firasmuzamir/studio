@@ -13,7 +13,7 @@
 <script src="_ds/nocturne-9e02e9de-8ec6-41ec-be49-7edb28f4cd5f/_ds_bundle.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   /* Standalone fallbacks for the design-system tokens.
      :where() keeps specificity at 0, so the _ds stylesheet still wins
@@ -47,6 +47,37 @@
     will-change: transform;
   }
 
+  /* Guide cue — borrows the handwritten marginalia language from
+     photobooth.html (.sketch-note + its #sketch-rough displacement filter),
+     recoloured for the dark hub. UAT showed nobody read the wedges as
+     clickable, so this states the action outright and points at the dial. */
+  .hub-cue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    pointer-events: none;
+  }
+  .hub-cue-text {
+    font-family: "Caveat", "Bradley Hand", cursive;
+    font-weight: 600;
+    font-size: clamp(23px, 6vw, 34px);
+    line-height: 1.05;
+    color: var(--color-accent-200);
+    transform: rotate(-4deg);
+  }
+  .hub-cue-arrow {
+    width: clamp(54px, 13vw, 78px);
+    height: auto;
+    fill: none;
+    stroke: var(--color-accent-200);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: url(#hub-sketch);
+    transform: translateX(16%);
+  }
+
   /* Mirrors the style-hover / style-active attributes on the three wedges
      so they respond without the DC runtime. Same values, so having both is a no-op. */
   main a:hover  { background: rgba(145,132,217,0.10) !important; }
@@ -58,6 +89,15 @@
 </style>
 </helmet>
 
+<svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+  <defs>
+    <filter id="hub-sketch" x="-12%" y="-12%" width="124%" height="124%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="5" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
 <div style="min-height: 100dvh; box-sizing: border-box; background: radial-gradient(120% 80% at 50% 40%, #1c1f31 0%, #161826 62%, #12131f 100%); color: var(--color-text); font-family: var(--font-body); display: flex; flex-direction: column; gap: clamp(20px, 5vw, 40px); padding: clamp(16px, 5vw, 32px);">
 
   <header style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
@@ -65,14 +105,23 @@
     <span style="font-family: var(--font-heading); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--color-accent-300);">Sifu Tangkap Studios</span>
   </header>
 
-  <main style="flex: 1; display: flex; align-items: center; justify-content: center;">
+  <main style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(4px, 1.5vw, 12px);">
+
+    <div class="hub-cue">
+      <span class="hub-cue-text">choose one of our services!</span>
+      <svg class="hub-cue-arrow" viewBox="0 0 100 72" aria-hidden="true">
+        <path d="M 8 6 C 42 0, 88 14, 75 54" />
+        <path d="M 63 40 L 75 56 L 88 39" />
+      </svg>
+    </div>
+
     <div style="position: relative; width: min(86vw, 52vh, 420px); aspect-ratio: 1 / 1; display: grid; place-items: center; flex: none;">
 
       <sc-if value="{{ showRings }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; inset: -18%; border-radius: 50%; background: radial-gradient(circle, rgba(145,132,217,0.30) 0%, rgba(145,132,217,0.12) 34%, transparent 66%); filter: blur(26px); animation: hub-breathe 7s ease-in-out infinite; pointer-events: none;"></div>
       </sc-if>
 
-      <a href="sports.html" style="position: absolute; inset: 0; border-radius: 50%; clip-path: polygon(50% 50%, -36.6% 0%, 50% -50%, 136.6% 0%); background: transparent; transition: background .25s;" style-hover="background: rgba(145,132,217,0.10);" style-active="background: rgba(145,132,217,0.16);">
+      <a href="sports.html" aria-label="Sports" style="position: absolute; inset: 0; border-radius: 50%; clip-path: polygon(50% 50%, -36.6% 0%, 50% -50%, 136.6% 0%); background: transparent; transition: background .25s;" style-hover="background: rgba(145,132,217,0.10);" style-active="background: rgba(145,132,217,0.16);">
         <svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none;" aria-hidden="true">
           <path id="arc-top" d="M 12,50 A 38,38 0 0 1 88,50" fill="none"></path>
           <text style="font-family: var(--font-heading); font-size: 6px; letter-spacing: 1.4px; text-transform: uppercase; fill: var(--color-accent-200);">
@@ -81,7 +130,7 @@
         </svg>
       </a>
 
-      <a href="events.html" style="position: absolute; inset: 0; border-radius: 50%; clip-path: polygon(50% 50%, 136.6% 0%, 136.6% 100%, 50% 150%); background: transparent; transition: background .25s;" style-hover="background: rgba(145,132,217,0.10);" style-active="background: rgba(145,132,217,0.16);">
+      <a href="events.html" aria-label="Events" style="position: absolute; inset: 0; border-radius: 50%; clip-path: polygon(50% 50%, 136.6% 0%, 136.6% 100%, 50% 150%); background: transparent; transition: background .25s;" style-hover="background: rgba(145,132,217,0.10);" style-active="background: rgba(145,132,217,0.16);">
         <svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; transform: rotate(-60deg);" aria-hidden="true">
           <path id="arc-event" d="M 12,50 A 38,38 0 0 0 88,50" fill="none"></path>
           <text style="font-family: var(--font-heading); font-size: 6px; letter-spacing: 1.4px; text-transform: uppercase; fill: var(--color-accent-200);">
@@ -90,7 +139,7 @@
         </svg>
       </a>
 
-      <a href="photobooth.html" style="position: absolute; inset: 0; border-radius: 50%; clip-path: polygon(50% 50%, 50% 150%, -36.6% 100%, -36.6% 0%); background: transparent; transition: background .25s;" style-hover="background: rgba(145,132,217,0.10);" style-active="background: rgba(145,132,217,0.16);">
+      <a href="photobooth.html" aria-label="Photobooth" style="position: absolute; inset: 0; border-radius: 50%; clip-path: polygon(50% 50%, 50% 150%, -36.6% 100%, -36.6% 0%); background: transparent; transition: background .25s;" style-hover="background: rgba(145,132,217,0.10);" style-active="background: rgba(145,132,217,0.16);">
         <svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; transform: rotate(60deg);" aria-hidden="true">
           <path id="arc-booth" d="M 12,50 A 38,38 0 0 0 88,50" fill="none"></path>
           <text style="font-family: var(--font-heading); font-size: 6px; letter-spacing: 1.4px; text-transform: uppercase; fill: var(--color-accent-200);">
