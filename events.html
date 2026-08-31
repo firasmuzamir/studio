@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Events — Sifu Tangkap Studios</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  /* Tokens mirror the hub (Studio Hub.dc.html) so the wedge → page
+     transition stays continuous. */
+  :root {
+    --bg:        #161826;
+    --text:      #e9e7f5;
+    --accent:    #9184d9;
+    --accent-200:#b9b0e8;
+    --accent-300:#9d94cf;
+    --display: "Bebas Neue", Impact, "Arial Narrow Bold", sans-serif;
+    --body:    "Inter", -apple-system, system-ui, sans-serif;
+    --mono:    "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); -webkit-text-size-adjust: 100%; }
+  body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 5vw, 40px);
+    padding: clamp(16px, 5vw, 32px);
+    background: radial-gradient(120% 80% at 50% 40%, #1c1f31 0%, #161826 62%, #12131f 100%);
+    color: var(--text);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  /* ── header: matches the hub's rule + eyebrow ─────────────── */
+  .topbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .rule {
+    display: block; width: 20px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent));
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-size: 11px; letter-spacing: .24em; text-transform: uppercase;
+    color: var(--accent-300);
+  }
+
+  /* ── main ─────────────────────────────────────────────────── */
+  main {
+    flex: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    gap: 22px;
+  }
+
+  /* Breathing halo, same cadence as the hub's rings. */
+  .halo {
+    position: fixed;
+    top: 50%; left: 50%;
+    width: min(90vw, 620px); aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(145,132,217,0.26) 0%, rgba(145,132,217,0.10) 34%, transparent 66%);
+    filter: blur(30px);
+    animation: hub-breathe 7s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes hub-breathe { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+
+  main > * { position: relative; z-index: 1; }
+
+  .title {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(64px, 20vw, 168px);
+    line-height: .84;
+    letter-spacing: .02em;
+    color: var(--text);
+  }
+  .status {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent-200);
+  }
+  .status::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: hub-breathe 2.4s ease-in-out infinite;
+  }
+  .blurb {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 15px; line-height: 1.6;
+    color: var(--accent-300);
+  }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 44px; padding: 0 20px;
+    border: 1px solid rgba(145,132,217,0.42);
+    border-radius: 999px;
+    font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--accent-200);
+    transition: background .25s, border-color .25s, color .25s;
+  }
+  .btn:hover { background: rgba(145,132,217,0.12); border-color: var(--accent); color: var(--text); }
+  .btn-primary { background: rgba(145,132,217,0.16); color: var(--text); }
+  .btn-primary:hover { background: rgba(145,132,217,0.26); }
+
+  /* ── footer: same shape as the hub's ──────────────────────── */
+  footer {
+    position: relative; z-index: 1;
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 6px 18px;
+    font-size: 12px; letter-spacing: .04em;
+    color: var(--accent-300);
+  }
+  footer a {
+    min-height: 44px; display: inline-flex; align-items: center;
+    color: var(--accent-300);
+  }
+  footer a:hover { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="halo" aria-hidden="true"></div>
+
+<header class="topbar">
+  <span class="rule" aria-hidden="true"></span>
+  <a class="eyebrow" href="Studio%20Hub.dc.html">Sifu Tangkap Studios</a>
+</header>
+
+<main>
+  <p class="status">Coming soon</p>
+  <h1 class="title">EVENTS</h1>
+  <p class="blurb">
+    Weddings, corporate nights, birthdays, launches — we're building the events
+    side of the studio. Want first dibs when it opens? Message us and we'll
+    quote you directly in the meantime.
+  </p>
+  <div class="actions">
+    <a class="btn btn-primary" href="https://wa.me/60197790361?text=Hi%20Sifu%20Tangkap%20Studios!%20I'd%20like%20to%20ask%20about%20event%20coverage." target="_blank" rel="noopener">Ask about events</a>
+    <a class="btn" href="Studio%20Hub.dc.html">← Back to hub</a>
+  </div>
+</main>
+
+<footer>
+  <span>Klang Valley · KL · Selangor</span>
+  <a href="https://instagram.com/sifutangkapstudios" target="_blank" rel="noopener">@sifutangkapstudios</a>
+  <a href="https://wa.me/60197790361" target="_blank" rel="noopener">wa.me / +60 19 779 0361</a>
+</footer>
+
+</body>
+</html>

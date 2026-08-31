@@ -56,10 +56,30 @@ body::before {
   text-transform: uppercase;
   justify-content: flex-end;
 }
+/* The brand lockup doubles as the route back to the hub (Studio Hub.dc.html) —
+   matches index.html. `.masthead a` below already supplies ink colour, no
+   underline, and the accent hover. */
 .masthead .brand {
   display: flex;
   align-items: center;
   gap: 10px;
+  transition: color 0.2s;
+}
+.masthead .brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+/* Dim until the lockup is hovered, so it reads as chrome rather than clutter. */
+.masthead .brand-back {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--muted);
+  transition: color 0.2s, transform 0.2s;
+}
+.masthead .brand:hover .brand-back {
+  color: var(--accent);
+  transform: translateX(-2px);
 }
 .masthead .brand-mark {
   height: 32px;
@@ -466,6 +486,32 @@ body::before {
   background: radial-gradient(ellipse at 50% 38%, rgba(255,235,200,0.55), transparent 55%);
   pointer-events: none;
 }
+/* Second column of .s1-grid — the on-location clip. Width is capped so the
+   9:16 source lands at a height in family with the 3:4 portrait beside it;
+   .s1-grid's align-items:end keeps their bottom edges on the same line. */
+.s1-right {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.s1-clip { margin: 0; width: min(100%, 330px); }
+.s1-clip video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1036 / 1842;
+  object-fit: cover;
+  border: 1px solid var(--ink);
+  background: var(--paper-2);
+}
+.s1-clip figcaption {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 10px;
+}
 /* ── Spread 2: Instant Edit ─────────────────────────────── */
 .spread-2 {
   background: var(--paper);
@@ -626,6 +672,14 @@ body::before {
   position: relative;
   overflow: hidden;
 }
+/* Real frames share the placeholders' tiles; cover-crop keeps them filling
+   the polaroid mat whatever aspect-ratio the tile declares. */
+.masonry .tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .masonry .tile .lbl {
   position: absolute;
   left: 8px; bottom: 8px;
@@ -728,6 +782,95 @@ body::before {
   background: transparent; color: var(--ink);
 }
 .cta.ghost:hover { background: var(--ink); color: var(--paper); }
+
+/* ── Booking form ──────────────────────────────────────────
+   Same WhatsApp-prefill flow as the sports page, dressed in the
+   magazine's palette: mono labels, ruled underline fields, and the
+   booth sizes as ink-filled chips. */
+.bk-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: min(100%, 380px);
+  justify-self: end;
+}
+.bk-row { display: flex; flex-direction: column; gap: 6px; }
+.bk-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bk-form input[type="date"],
+.bk-form input[type="text"] {
+  font-family: "Archivo", system-ui, sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 8px 2px;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.bk-form input::placeholder { color: var(--muted); opacity: 0.75; }
+.bk-form input:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+}
+
+/* Booth sizes — one pick, so radios. Chip fills with ink when chosen. */
+.bk-size { border: none; margin: 0; padding: 0; min-width: 0; }
+.bk-size legend { padding: 0; margin-bottom: 10px; }
+.bk-size label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.bk-size label + label { margin-top: 8px; }
+/* Visually hidden, but still focusable and reachable by keyboard. */
+.bk-size input {
+  position: absolute;
+  width: 1px; height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.bk-size .size-dims {
+  font-family: "Bodoni Moda", serif;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.bk-size .size-dims i { font-style: italic; font-size: 13px; color: var(--muted); }
+.bk-size .size-tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.bk-size label:has(input:checked) { background: var(--ink); color: var(--paper); }
+.bk-size label:has(input:checked) .size-dims i,
+.bk-size label:has(input:checked) .size-tag { color: var(--paper); }
+.bk-size label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* The second size is not buildable yet — dashed and inert, but still legible. */
+.bk-size label.is-soon { cursor: not-allowed; border-style: dashed; border-color: var(--muted); }
+.bk-size label.is-soon .size-dims,
+.bk-size label.is-soon .size-dims i { color: var(--muted); }
+.bk-size .size-tag.soon { color: var(--accent); }
+
+.bk-form .cta { justify-content: center; width: 100%; }
+.bk-form .cta.ghost { border-color: var(--ink); }
 
 /* ── Colophon ──────────────────────────────────────────── */
 .colophon {
@@ -1099,9 +1242,11 @@ body.sketch-mode .cover-bullets .t .h::after {
   .booth-shadow { display: none; }
 
   .s1-grid, .s2-grid { grid-template-columns: 1fr; gap: 36px; }
+  .s1-right { justify-content: flex-start; }
   .masonry { columns: 3; }
   .booking { grid-template-columns: 1fr; }
   .cta-stack { align-items: flex-start; }
+  .bk-form { justify-self: start; }
   .colophon { grid-template-columns: 1fr 1fr; }
 
   .phone-stack { height: 560px; min-width: 0; max-width: 560px; }

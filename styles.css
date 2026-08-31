@@ -69,7 +69,34 @@ img, svg { display: block; max-width: 100%; }
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
-.brand { display: flex; align-items: center; gap: 10px; }
+/* The brand lockup doubles as the route back to the hub (Studio Hub.dc.html),
+   so it is an <a> — reset the UA link styling and keep the chrome look. */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--fg);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.brand:hover { color: var(--accent); }
+.brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+/* Back arrow: dim until the lockup is hovered, so it reads as chrome not clutter. */
+.brand-back {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--dim);
+  transition: color 0.2s, transform 0.2s;
+}
+.brand:hover .brand-back {
+  color: var(--accent);
+  transform: translateX(-2px);
+}
 .brand-mark {
   height: 32px;
   width: auto;

@@ -23,10 +23,11 @@
 
 <!-- ── MASTHEAD ───────────────────────────────────────────── -->
 <header class="masthead">
-  <div class="brand">
+  <a class="brand" href="Studio%20Hub.dc.html" aria-label="Back to the Sifu Tangkap Studios hub">
+    <span class="brand-back" aria-hidden="true">&larr;</span>
     <img class="brand-mark" src="assets/logotrans.png" alt="" aria-hidden="true" />
     <div class="brand-name">SIFU TANGKAP STUDIOS</div>
-  </div>
+  </a>
   <nav class="right">
     <a href="#book">Book</a>
   </nav>
@@ -128,15 +129,18 @@
   </p>
 
   <div class="s1-grid">
-    <div class="s1-left">
-      <div class="s1-portrait">
-        <div class="placeholder rose"></div>
-        <div class="ph-label">
-          PRODUCT SHOT —<br/>
-          STUDIO PORTRAIT, 3:4<br/>
-          INSIDE THE BOOTH, KEY LIGHT FROM LEFT
-        </div>
-      </div>
+    <!-- Fills the grid's second column, which was empty.
+         Clip is 1036x1842 (9:16) — .s1-clip is sized to that ratio so it
+         plays uncropped. Muted so browsers allow autoplay. -->
+    <div class="s1-right">
+      <figure class="s1-clip">
+        <video
+          src="assets/videos/booth_review.mp4"
+          autoplay muted loop playsinline
+          preload="metadata"
+          aria-label="The booth set up and running on location"></video>
+        <figcaption>&mdash; On location, in minutes &mdash;</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -206,13 +210,12 @@
   </p>
 
   <div class="masonry">
-    <div class="tile" style="aspect-ratio: 3 / 4;">
-      <div class="placeholder rose"></div>
+    <div class="tile" style="aspect-ratio: 3479 / 4042;">
+      <img src="assets/photos/SAC_281.JPG" alt="Three guests in evening gowns posing together inside the booth at the Sunway Agility Challenge 2026" loading="lazy" />
       <span class="frame-no">№ 001</span>
       <span class="lbl">Cover · Hero</span>
-      <div class="ph-label">PORTRAIT — SOLO</div>
     </div>
-    <div class="tile" style="aspect-ratio: 1 / 1;">
+    <!-- <div class="tile" style="aspect-ratio: 1 / 1;">
       <div class="placeholder warm"></div>
       <span class="frame-no">№ 014</span>
       <span class="lbl">Square · Couple</span>
@@ -229,15 +232,14 @@
       <span class="frame-no">№ 042</span>
       <span class="lbl">Family</span>
       <div class="ph-label">FAMILY — 4</div>
-    </div>
-    <div class="tile" style="aspect-ratio: 2 / 3;">
-      <div class="placeholder plum"></div>
+    </div> -->
+    <div class="tile" style="aspect-ratio: 3381 / 3924;">
+      <img src="assets/photos/SAC_264.JPG" alt="A team of eight in formal dress posed inside the booth at the Sunway Agility Challenge 2026" loading="lazy" />
       <span class="frame-no">№ 056</span>
-      <span class="lbl">Profile</span>
-      <div class="ph-label">PORTRAIT — TURN</div>
+      <span class="lbl">Group · Formal</span>
     </div>
 
-    <div class="tile" style="aspect-ratio: 1 / 1;">
+    <!-- <div class="tile" style="aspect-ratio: 1 / 1;">
       <div class="placeholder slate"></div>
       <span class="frame-no">№ 071</span>
       <span class="lbl">Crew</span>
@@ -254,14 +256,13 @@
       <span class="frame-no">№ 099</span>
       <span class="lbl">Editorial</span>
       <div class="ph-label">PORTRAIT — LEAN</div>
-    </div>
-    <div class="tile" style="aspect-ratio: 3 / 4;">
-      <div class="placeholder olive"></div>
+    </div> -->
+    <div class="tile" style="aspect-ratio: 3313 / 3837;">
+      <img src="assets/photos/SAC_347.JPG" alt="Eight colleagues pulling playful poses inside the booth at the Sunway Agility Challenge 2026" loading="lazy" />
       <span class="frame-no">№ 112</span>
-      <span class="lbl">Side</span>
-      <div class="ph-label">DUO — SIDE</div>
+      <span class="lbl">Group · Candid</span>
     </div>
-    <div class="tile" style="aspect-ratio: 1 / 1;">
+    <!-- <div class="tile" style="aspect-ratio: 1 / 1;">
       <div class="placeholder sage"></div>
       <span class="frame-no">№ 124</span>
       <span class="lbl">Reel</span>
@@ -279,14 +280,13 @@
       <span class="frame-no">№ 156</span>
       <span class="lbl">Family</span>
       <div class="ph-label">FAMILY — 5</div>
-    </div>
-    <div class="tile" style="aspect-ratio: 3 / 4;">
-      <div class="placeholder warm"></div>
+    </div> -->
+    <div class="tile" style="aspect-ratio: 3417 / 3932;">
+      <img src="assets/photos/SAC_278.JPG" alt="Ten guests crowded into the booth mid-cheer at the Sunway Agility Challenge 2026" loading="lazy" />
       <span class="frame-no">№ 178</span>
-      <span class="lbl">Cover</span>
-      <div class="ph-label">PORTRAIT — TIGHT</div>
+      <span class="lbl">Crew · Full House</span>
     </div>
-    <div class="tile" style="aspect-ratio: 1 / 1;">
+    <!-- <div class="tile" style="aspect-ratio: 1 / 1;">
       <div class="placeholder rose"></div>
       <span class="frame-no">№ 199</span>
       <span class="lbl">Couple</span>
@@ -304,14 +304,13 @@
       <span class="frame-no">№ 232</span>
       <span class="lbl">Reel</span>
       <div class="ph-label">SOLO — STORY</div>
-    </div>
-    <div class="tile" style="aspect-ratio: 3 / 4;">
-      <div class="placeholder plum"></div>
+    </div> -->
+    <div class="tile" style="aspect-ratio: 3242 / 3688;">
+      <img src="assets/photos/SAC_348.JPG" alt="Nine colleagues laughing and gesturing inside the booth at the Sunway Agility Challenge 2026" loading="lazy" />
       <span class="frame-no">№ 251</span>
       <span class="lbl">Late Night</span>
-      <div class="ph-label">DUO — LAUGH</div>
     </div>
-    <div class="tile" style="aspect-ratio: 2 / 3;">
+    <!-- <div class="tile" style="aspect-ratio: 2 / 3;">
       <div class="placeholder slate"></div>
       <span class="frame-no">№ 268</span>
       <span class="lbl">Group</span>
@@ -328,7 +327,7 @@
       <span class="frame-no">№ 302</span>
       <span class="lbl">Closing</span>
       <div class="ph-label">CREW — LINE</div>
-    </div>
+    </div> -->
   </div>
 
   <div class="archive-fade"></div>
@@ -344,16 +343,49 @@
     <h2 class="b-h">Reserve <em>the cover</em> of your evening.</h2>
     <div class="b-sub">— Quotes returned within 24 hours · Bookings open through 2027 —</div>
   </div>
-  <div class="cta-stack">
-    <a href="#" class="cta">Book the Booth <span class="arrow">→</span></a>
-    <a href="#" class="cta ghost">See the Press Kit <span class="arrow">→</span></a>
-    <span class="sketch-note bk-note">← only 3 dates<br/>left in June!</span>
-  </div>
+  <!-- Booking form → WhatsApp prefill.
+       Same flow as the sports page (index.html): collect the details, then
+       hand off to WhatsApp with the message already written. The number
+       lives in the <script> below — search `const phone`. -->
+  <form class="bk-form" id="booth-form" autocomplete="off">
+    <label class="bk-row">
+      <span class="bk-label">Event date</span>
+      <input type="date" id="bb-date" required />
+    </label>
+    <label class="bk-row">
+      <span class="bk-label">Venue</span>
+      <input type="text" id="bb-venue" placeholder="e.g. Grand Hyatt, KL" required />
+    </label>
+    <label class="bk-row">
+      <span class="bk-label">Event / occasion</span>
+      <input type="text" id="bb-event" placeholder="e.g. Aisyah &amp; Danial's wedding" required />
+    </label>
+
+    <fieldset class="bk-row bk-size">
+      <legend class="bk-label">Booth size</legend>
+      <label>
+        <input type="radio" name="size" value="200 x 200 x 230cm" checked />
+        <span class="size-dims">200 &times; 200 &times; 230 <i>cm</i></span>
+        <span class="size-tag">Walk-in</span>
+      </label>
+      <label class="is-soon">
+        <input type="radio" name="size" value="200 x 130 x 230cm" disabled />
+        <span class="size-dims">200 &times; 130 &times; 230 <i>cm</i></span>
+        <span class="size-tag soon">Coming soon</span>
+      </label>
+    </fieldset>
+
+    <button type="submit" class="cta" aria-label="Send booking on WhatsApp">
+      Send on WhatsApp <span class="arrow">&rarr;</span>
+    </button>
+    <a href="#" class="cta ghost">See the Press Kit <span class="arrow">&rarr;</span></a>
+    <!-- <span class="sketch-note bk-note">&uarr; only 3 dates<br/>left in June!</span> -->
+  </form>
 </section>
 
 <!-- ── COLOPHON ───────────────────────────────────────────── -->
 <footer class="colophon">
-  <div>
+  <!-- <div>
     <h4>Colophon</h4>
     <div class="mark">Sifu <em>Tangkap</em></div>
     <p class="colophon-blurb">
@@ -373,7 +405,7 @@
     <a href="#">Tear-sheets</a><br/>
     <a href="#">Behind the Booth</a><br/>
     <a href="#">Vol. Archive</a>
-  </div>
+  </div> -->
   <div>
     <h4>Contact</h4>
     <a href="/cdn-cgi/l/email-protection#88e0ede4e4e7c8fbe1eefdfce9e6efe3e9f8a6fbfcfdece1e7"><span class="__cf_email__" data-cfemail="7e161b1212113e0d17180b0a1f1019151f0e500d0a0b1a1711">[email&#160;protected]</span></a><br/>
@@ -384,10 +416,10 @@
 </footer>
 
 <!-- ── FOLIO ─────────────────────────────────────────────── -->
-<div class="folio" id="folio">
+<!-- <div class="folio" id="folio">
   <span class="num" id="folio-num">01</span>
   <span class="label" id="folio-label">— The Cover —</span>
-</div>
+</div> -->
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll-driven booth rotation (the booth rotates as it scrolls into view).
@@ -468,6 +500,40 @@
   }
   measure();
   onScroll();
+
+  /* ============================================================
+     BOOKING FORM  →  WhatsApp prefill
+     Mirrors the sports page (index.html). Replace `phone` with the
+     real WhatsApp business number: country code + number, no `+`,
+     no spaces.
+     ============================================================ */
+  const phone = '60197790361';
+
+  const boothForm = document.getElementById('booth-form');
+  if (boothForm) {
+    boothForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const date  = document.getElementById('bb-date').value;
+      const venue = document.getElementById('bb-venue').value;
+      const event = document.getElementById('bb-event').value;
+      const sizeInput = boothForm.querySelector('input[name="size"]:checked');
+      const size = sizeInput ? sizeInput.value : 'Not selected';
+
+      // Build the message as plain text, then encode once — keeps the
+      // line breaks and the "x" in the dimensions intact.
+      const msg = [
+        "Hi Sifu Tangkap Studios! I'd like to book The Cover Booth.",
+        '',
+        `\u2022 Date: ${date}`,
+        `\u2022 Venue: ${venue}`,
+        `\u2022 Event: ${event}`,
+        `\u2022 Booth size: ${size}`,
+      ].join('\n');
+
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+    });
+  }
 </script>
 
 </body>
