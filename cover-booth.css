@@ -56,8 +56,8 @@ body::before {
   text-transform: uppercase;
   justify-content: flex-end;
 }
-/* The brand lockup doubles as the route back to the hub (Studio Hub.dc.html) —
-   matches index.html. `.masthead a` below already supplies ink colour, no
+/* The brand lockup doubles as the route back to the hub (index.html) —
+   matches sports.html. `.masthead a` below already supplies ink colour, no
    underline, and the accent hover. */
 .masthead .brand {
   display: flex;
@@ -72,14 +72,14 @@ body::before {
 /* Dim until the lockup is hovered, so it reads as chrome rather than clutter. */
 .masthead .brand-back {
   font-family: "JetBrains Mono", monospace;
-  font-size: 14px;
+  font-size: 24px;
   line-height: 1;
   color: var(--muted);
   transition: color 0.2s, transform 0.2s;
 }
 .masthead .brand:hover .brand-back {
   color: var(--accent);
-  transform: translateX(-2px);
+  transform: translateX(-3px);
 }
 .masthead .brand-mark {
   height: 32px;

@@ -23,7 +23,7 @@
 
 <!-- ── MASTHEAD ───────────────────────────────────────────── -->
 <header class="masthead">
-  <a class="brand" href="Studio%20Hub.dc.html" aria-label="Back to the Sifu Tangkap Studios hub">
+  <a class="brand" href="index.html" aria-label="Back to the Sifu Tangkap Studios hub">
     <span class="brand-back" aria-hidden="true">&larr;</span>
     <img class="brand-mark" src="assets/logotrans.png" alt="" aria-hidden="true" />
     <div class="brand-name">SIFU TANGKAP STUDIOS</div>
@@ -341,7 +341,7 @@
     <div class="b-sub">— Quotes returned within 24 hours · Bookings open through 2027 —</div>
   </div>
   <!-- Booking form → WhatsApp prefill.
-       Same flow as the sports page (index.html): collect the details, then
+       Same flow as the sports page (sports.html): collect the details, then
        hand off to WhatsApp with the message already written. The number
        lives in the <script> below — search `const phone`. -->
   <form class="bk-form" id="booth-form" autocomplete="off">
@@ -436,22 +436,64 @@
 
   const bullets = document.querySelectorAll('.bullet-reel .cover-bullets > div');
 
-  // Recompute the scroll distance at which the booth's centre lines up with the
-  // viewport centre. The rotation reaches t=1 at that point.
-  let triggerEnd = window.innerHeight;
-  function measure() {
-    const prev = booth.style.transform;
-    booth.style.transform = 'translate(-50%, 0)';
-    const rect = booth.getBoundingClientRect();
-    booth.style.transform = prev;
-    const boothCenter = rect.top + rect.height / 2 + window.scrollY;
-    triggerEnd = Math.max(1, boothCenter - window.innerHeight / 2);
+  /* ---------- stable viewport height ----------
+     cover-booth.css sizes its sections in `vh`, which on mobile is pinned to
+     the LARGE viewport (URL bar retracted) and stays put as that bar shows and
+     hides. window.innerHeight does NOT — it moves between the two as the bar
+     animates. Driving the maths off innerHeight while the layout is sized in
+     vh makes triggerEnd and the bullet-reel range shift with no real
+     scrolling, which is the jitter. Read 100vh off a probe so the JS agrees
+     with the CSS; it only changes on a genuine resize / orientation change. */
+  const vhProbe = document.createElement('div');
+  vhProbe.setAttribute('aria-hidden', 'true');
+  vhProbe.style.cssText =
+    'position:absolute;top:0;left:0;width:0;height:100vh;' +
+    'visibility:hidden;pointer-events:none;';
+  document.body.appendChild(vhProbe);
+
+  let viewH = 0;
+  function measureViewport() {
+    viewH = vhProbe.getBoundingClientRect().height || window.innerHeight;
   }
 
-  function onScroll() {
-    const y = window.scrollY;
-    const vh = window.innerHeight;
+  // Recompute the scroll distance at which the booth's centre lines up with the
+  // viewport centre. The rotation reaches t=1 at that point.
+  // Measured off .booth-stage, which is never transformed — the old version
+  // reset #booth3d's transform, read it back, then restored it, forcing a
+  // synchronous layout on every single resize (i.e. every URL-bar move).
+  const boothStage = document.querySelector('.booth-stage');
+  let triggerEnd = 1;
+  function measure() {
+    measureViewport();
+    const ref = boothStage || booth;
+    const rect = ref.getBoundingClientRect();
+    const boothCenter = rect.top + rect.height / 2 + window.scrollY;
+    triggerEnd = Math.max(1, boothCenter - viewH / 2);
+  }
 
+  function update() {
+    const y = window.scrollY;
+    const vh = viewH;
+
+    /* Read phase — every geometry read happens up front. Interleaving reads
+       with style writes forces the browser to re-run layout for each read;
+       that thrash was costing several forced layouts per scroll event. */
+    const bulletCenters = [];
+    for (const b of bullets) {
+      const r = b.getBoundingClientRect();
+      bulletCenters.push(r.top + r.height / 2);
+    }
+    let active = null;
+    if (folioNum && folioLabel) {
+      const probe = y + vh / 2;
+      active = sections[0];
+      for (const s of sections) {
+        if (!s.el) continue;
+        if (probe >= s.el.offsetTop) active = s;
+      }
+    }
+
+    /* Write phase. */
     // Booth: 0 → full rotation as it scrolls to the vertical centre of the viewport.
     const t = Math.max(0, Math.min(1, y / triggerEnd));
     const ry = t * -22;
@@ -460,35 +502,31 @@
     booth.style.transform = `translate(-50%, ${t * -10}px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(${tz}px)`;
 
     // Folio — the markup is currently commented out, so these can be null.
-    // Guard them: an unguarded throw here aborts onScroll before the
-    // bullet-reel update below ever runs, freezing the reel at --p: 0.
-    if (folioNum && folioLabel) {
-      const probe = y + vh / 2;
-      let active = sections[0];
-      for (const s of sections) {
-        if (!s.el) continue;
-        const top = s.el.offsetTop;
-        if (probe >= top) active = s;
-      }
-      if (folioNum.textContent !== active.num) {
-        folioNum.textContent = active.num;
-        folioLabel.textContent = active.label;
-      }
+    if (active && folioNum.textContent !== active.num) {
+      folioNum.textContent = active.num;
+      folioLabel.textContent = active.label;
     }
 
     // Bullet reel — proximity to viewport center → --p in [0, 1].
     // Narrow range so neighbours don't co-expand and steal attention.
     const centerY = vh / 2;
     const range = vh * 0.22;
-    bullets.forEach(b => {
-      const r = b.getBoundingClientRect();
-      const bc = r.top + r.height / 2;
-      let p = 1 - Math.abs(bc - centerY) / range;
+    bullets.forEach((b, i) => {
+      let p = 1 - Math.abs(bulletCenters[i] - centerY) / range;
       if (p < 0) p = 0;
       if (p > 1) p = 1;
       p = p * p * (3 - 2 * p);
       b.style.setProperty('--p', p.toFixed(3));
     });
+  }
+
+  /* rAF-coalesced scroll listener — matches sports.html. Mobile fires scroll
+     far more often than it paints, and the handler above touches layout, so
+     running it per event rather than per frame was the main source of jank. */
+  let raf = 0;
+  function onScroll() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => { raf = 0; update(); });
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -500,11 +538,11 @@
     else frontImg.addEventListener('load', () => { measure(); onScroll(); });
   }
   measure();
-  onScroll();
+  update();   // paint the first frame synchronously; onScroll defers to rAF
 
   /* ============================================================
      BOOKING FORM  →  WhatsApp prefill
-     Mirrors the sports page (index.html). Replace `phone` with the
+     Mirrors the sports page (sports.html). Replace `phone` with the
      real WhatsApp business number: country code + number, no `+`,
      no spaces.
      ============================================================ */

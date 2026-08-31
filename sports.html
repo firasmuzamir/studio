@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Sifu Tangkap Studios</title>
+
+<!-- Fonts: Bebas Neue (display), Inter (body), JetBrains Mono (annotations) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- subtle column grid overlay -->
+<div class="wf-grid" aria-hidden="true"></div>
+
+<!-- ============================================================
+     TOP BAR
+     ============================================================ -->
+<header class="topbar">
+  <a class="brand" href="index.html" aria-label="Back to the Sifu Tangkap Studios hub">
+    <span class="brand-back" aria-hidden="true">←</span>
+    <img class="brand-mark" src="assets/logotrans.png" alt="" aria-hidden="true" />
+    <div class="brand-name">SIFU TANGKAP STUDIOS</div>
+  </a>
+  <div class="topbar-actions">
+    <a class="topbar-cta" href="#cta">book →</a>
+  </div>
+</header>
+
+<!-- progress rail; one dot per beat (dslr, stills, pov, full) -->
+<!-- <nav class="rail" aria-hidden="true">
+  <div class="rail-dot" data-rail="1"></div>
+  <div class="rail-dot" data-rail="2"></div>
+  <div class="rail-dot" data-rail="3"></div>
+  <div class="rail-dot" data-rail="4"></div>
+  <div class="rail-label">SCROLL</div>
+</nav> -->
+
+<!-- ============================================================
+     HERO  (Beat 0)
+     ============================================================ -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="hero-eyebrow">Sports photography · est. on the sideline</div>
+  <h1 class="hero-title" data-comment-anchor="hero-title">
+    SPORTS<br/><span class="accent">COVERAGE</span>
+  </h1>
+  <p class="hero-sub">We catch the game so you don't have to. Scroll the kit ↓</p>
+  <div class="hero-scroll-cue">
+    <div class="line"></div>
+    <div class="label">scroll</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BEAT 2 — 300+ PHOTOS  (stills package)
+     Image assets:
+       assets/photos/photo-01.JPG      — main hero shot
+       assets/photos/photo-02..04.JPG  — sample-strip thumbs
+     ============================================================ -->
+<section class="stage gear-beat" data-beat="0" data-screen-label="03 300 Photos">
+  <div class="track">
+    <div class="pin">
+      <div class="scene">
+        <div class="gear-rail" aria-hidden="true"></div>
+        <div class="gear-card from-right" id="card-player">
+          <div class="gear-visual">
+            <img class="gear-photo" src="assets/photos/photo-01.JPG" alt="Sideline action: player on the ball, defender closing in" loading="lazy" />
+          </div>
+          <div class="gear-copy">
+            <div class="gear-kicker">Stills package</div>
+            <h2 class="gear-headline"><span class="num">300+</span><br/>PHOTOS<br/>GUARANTEED</h2>
+            <p class="gear-sub">Every match. Every angle. Edited &amp; delivered the next morning.</p>
+          </div>
+          <div class="samples" aria-hidden="true">
+            <img class="sample sample-photo" src="assets/photos/photo-02.JPG" alt="" loading="lazy" />
+            <img class="sample sample-photo" src="assets/photos/photo-03.JPG" alt="" loading="lazy" />
+            <img class="sample sample-photo" src="assets/photos/photo-04.JPG" alt="" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BEAT 3 — POV FOOTAGE
+     Video asset: assets/videos/SCORING.MP4  (portrait clip, sole visual)
+     ============================================================ -->
+<section class="stage gear-beat" data-beat="1" data-screen-label="04 POV Footage">
+  <div class="track">
+    <div class="pin">
+      <div class="scene">
+        <div class="gear-rail" aria-hidden="true"></div>
+        <div class="gear-card from-left pov-card" id="card-actioncam">
+          <div class="gear-copy">
+            <div class="gear-kicker">POV add-on</div>
+            <h2 class="gear-headline">POV<br/>FOOTAGE<br/><span class="num">WITH DJI NANO</span></h2>
+            <p class="gear-sub">First-person chest-strap. Feel the run before you see it.</p>
+          </div>
+          <div class="samples samples-single" aria-hidden="true">
+            <div class="sample sample-clip">
+              <video class="sample-video" src="assets/videos/SCORING.MP4" autoplay muted loop playsinline></video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BEAT 4 — FULL GAMEPLAY
+     Image asset: assets/photos/xbotgo.jpg
+     ============================================================ -->
+<section class="stage gear-beat final-stage" data-beat="2" data-screen-label="05 Full Gameplay">
+  <div class="track">
+    <div class="pin">
+      <div class="scene">
+        <div class="gear-rail" aria-hidden="true"></div>
+        <div class="gear-card from-right" id="card-camcorder">
+          <div class="gear-visual">
+            <img class="gear-photo" src="assets/photos/xbotgo.png" alt="XbotGo auto-tracking sports camera on tripod" loading="lazy" />
+          </div>
+          <div class="gear-copy">
+            <div class="gear-kicker">Full Game Recording</div>
+            <h2 class="gear-headline">FULL<br/>GAMEPLAY<br/><span class="num">RECORDED WITH AI!</span></h2>
+            <p class="gear-sub">Whistle to whistle. Tagged by half &amp; possession. Yours forever.</p>
+            <p class="gear-sub">Uploaded to <span class="yt"><span class="yt-you">You</span>Tube</span></p>
+          </div>
+          <div class="samples samples-shot" aria-hidden="true">
+            <div class="sample sample-shot">
+              <img src="assets/photos/youtube-example.png" alt="Full match uploaded to YouTube" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA + BOOKING FORM
+     The form prefills a WhatsApp deep link on submit.
+     The phone number lives in <script> below — search `const phone`.
+     ============================================================ -->
+<section class="cta" id="cta" data-screen-label="07 CTA">
+  <div class="cta-eyebrow">Book your match</div>
+  <h2 class="cta-title">CATCH THE<br/><span style="color:var(--accent)">NEXT GAME.</span></h2>
+  <p class="cta-sub">Tell us where &amp; when. We'll prep a WhatsApp message for you.</p>
+  <p class="cta-sub">Price may include travel costs if applicable.</p>
+
+  <form class="booking" id="booking-form" autocomplete="off">
+    <label class="booking-row">
+      <span class="booking-label">Match date</span>
+      <input type="date" id="bk-date" required />
+    </label>
+    <label class="booking-row">
+      <span class="booking-label">Venue</span>
+      <input type="text" id="bk-venue" placeholder="e.g. Padang Merbok, KL" required />
+    </label>
+    <label class="booking-row">
+      <span class="booking-label">Team / event</span>
+      <input type="text" id="bk-team" placeholder="e.g. KL Strikers vs Selangor FC" required />
+    </label>
+    <fieldset class="booking-row booking-pkg">
+      <legend class="booking-label">Package (pick any)</legend>
+      <label>
+        <input type="checkbox" name="pkg" value="Stills" data-price="70" checked />
+        <span>Stills</span>
+        <span class="pkg-price">
+          <span class="price-stack">
+            <span class="old-price">RM139</span>
+            <span class="new-price">RM70</span>
+          </span>
+          <span class="promo-pill">PROMO</span>
+        </span>
+      </label>
+      <label>
+        <input type="checkbox" name="pkg" value="POV" data-price="10" />
+        <span>POV</span>
+        <span class="pkg-price">
+          <span class="price-stack">
+            <span class="old-price">RM29</span>
+            <span class="new-price">RM10</span>
+          </span>
+          <span class="promo-pill">PROMO</span>
+        </span>
+      </label>
+      <label>
+        <input type="checkbox" name="pkg" value="Full AI Coverage" data-price="30" />
+        <span>Full AI<br/>Coverage</span>
+        <span class="pkg-price">
+          <span class="price-stack">
+            <span class="old-price">RM80</span>
+            <span class="new-price">RM30</span>
+          </span>
+          <span class="promo-pill">PROMO</span>
+        </span>
+      </label>
+    </fieldset>
+    <div class="booking-row booking-total">
+      <span class="booking-label">Total</span>
+      <output id="bk-total" class="booking-total-value" for="bk-pkg">RM140</output>
+    </div>
+    <button type="submit" class="cta-btn" aria-label="Send booking on WhatsApp">
+      <span class="wa-icon" aria-hidden="true"></span>
+      SEND ON WHATSAPP
+    </button>
+  </form>
+
+  <div class="cta-secondary">or @sifutangkapstudios on instagram</div>
+</section>
+
+<footer class="footer">
+  <div class="footer-row">
+    <span>© Sifu Tangkap Studios</span>
+    <span class="sep">·</span>
+    <span>Klang Valley · KL · Selangor</span>
+  </div>
+  <div class="footer-row footer-handles">
+    <a href="#">@sifutangkapstudios</a>
+    <a href="#">tiktok / @sifutangkapstudios</a>
+    <a href="#">wa.me / +60197790361</a>
+  </div>
+  <div class="footer-row footer-meta">EN · BM · usually replies in 2 hrs</div>
+</footer>
+
+<!-- React tweaks panel mounts here -->
+<div id="tweaks-root"></div>
+
+<!-- ============================================================
+     SCROLL ENGINE
+     Per-frame update split into named functions:
+       updateDslr()      — Beat 1 zoom transforms + flare
+       updateGearCards() — Beats 2–4 slide-in --p variable
+       updateRail()      — right-rail active dot
+
+     Tweak DSLR phase boundaries via the PHASE_* constants below.
+     ============================================================ -->
+<script>
+  (function () {
+    /* ---------- DOM lookups ---------- */
+    const stages       = Array.from(document.querySelectorAll('.stage'));
+    const railDots     = Array.from(document.querySelectorAll('.rail-dot'));
+    // gear cards keyed by stage index offset (0=stills, 1=pov, 2=camcorder)
+    const cards = {
+      0: document.querySelector('#card-player'),
+      1: document.querySelector('#card-actioncam'),
+      2: document.querySelector('#card-camcorder'),
+    };
+
+    /* ---------- math helpers ---------- */
+    const clamp  = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const smooth = (t) => t * t * (3 - 2 * t); // smoothstep ease
+
+    /* ---------- stable viewport height ----------
+       The CSS sizes .track and .pin in `svh` — the viewport as it is WITH the
+       mobile URL bar showing — which stays constant while that bar hides and
+       shows. window.innerHeight does NOT: it grows toward `lvh` as the bar
+       retracts. Measuring progress against innerHeight while the layout is
+       sized in svh makes every value drift as the bar animates, with no actual
+       scrolling — that is the jitter when scrolling up. (Scrolling down only
+       retracts the bar once, after which innerHeight sits still, which is why
+       it felt fine in that direction.)
+
+       So read 100svh off a probe element and let the JS agree with the CSS.
+       svh only changes on a real resize / orientation change, so this is
+       cached and refreshed there. */
+    const svhProbe = document.createElement('div');
+    svhProbe.setAttribute('aria-hidden', 'true');
+    svhProbe.style.cssText =
+      'position:absolute;top:0;left:0;width:0;height:100svh;' +
+      'visibility:hidden;pointer-events:none;';
+    document.body.appendChild(svhProbe);
+
+    let viewH = 0;
+    function measureViewport() {
+      // Browsers without `svh` collapse the probe to 0 — fall back to innerHeight.
+      viewH = svhProbe.getBoundingClientRect().height || window.innerHeight;
+    }
+    measureViewport();
+
+    /* ---------- per-stage scroll progress ----------
+       Returns 0 → 1 across a stage's track:
+         0 = track top hits viewport top
+         1 = track bottom leaves viewport bottom (sticky release) */
+    function trackProgress(stage) {
+      const track = stage.querySelector('.track');
+      const r = track.getBoundingClientRect();
+      const vh = viewH;
+      const total = Math.max(1, r.height - vh);
+      return clamp(-r.top / total, 0, 1);
+    }
+
+    /* ---------- Beats 2–4 — gear cards ----------
+       Slide in based on the card's viewport position:
+         p = 0 when card top enters viewport bottom
+         p = 1 when card center reaches viewport middle
+       --p drives translate (see .gear-card.from-right/.from-left CSS).
+       .is-locked triggers the sample-strip fade-in. */
+    function cardEnterProgress(card) {
+      const r = card.getBoundingClientRect();
+      const vh = viewH;
+      const startY = vh;                       // card top at viewport bottom → p=0
+      const endY   = vh / 2 - r.height / 2;    // card center at viewport middle → p=1
+      const total  = Math.max(1, startY - endY);
+      return clamp((startY - r.top) / total, 0, 1);
+    }
+    function updateGearCards() {
+      [0, 1, 2].forEach((stageIdx, cardIdx) => {
+        const stage = stages[stageIdx];
+        const card = cards[cardIdx];
+        if (!stage || !card) return;
+
+        /*
+          IMPORTANT: derive animation progress from the stage/track, not from
+          the transformed card itself. Measuring a transformed card and then
+          changing that transform creates a feedback loop that can jitter.
+        */
+        let raw;
+
+        if (stage.classList.contains('final-stage')) {
+          const rect = stage.getBoundingClientRect();
+          const vh = viewH;
+          raw = clamp((vh - rect.top) / Math.max(1, vh * 0.72), 0, 1);
+        } else {
+          raw = clamp(trackProgress(stage) / 0.34, 0, 1);
+        }
+
+        const v = smooth(raw);
+        card.style.setProperty('--p', v.toFixed(3));
+        card.classList.toggle('is-locked', v >= 0.95);
+      });
+    }
+
+    /* ---------- Beat 2 (stills) spotlight ----------
+       Once the thumbnails have revealed, the beat's later scroll range
+       (GROW_START → GROW_END of the track) slides the outer two thumbs up and
+       away while the middle one grows. --grow (0→1) drives the CSS; the
+       remaining scroll after GROW_END is a buffer before the pin releases. */
+    const stillsStage = document.querySelector('[data-beat="0"]');
+    const GROW_START = 0.30, GROW_END = 0.78;
+    function updateStillsSpotlight() {
+      if (!stillsStage || !cards[0]) return;
+      const tp = trackProgress(stillsStage);
+      const q  = smooth(clamp((tp - GROW_START) / (GROW_END - GROW_START), 0, 1));
+      cards[0].style.setProperty('--grow', q.toFixed(3));
+    }
+
+    /* ---------- right-edge rail ---------- */
+    function updateRail() {
+      let activeIdx = -1, bestScore = -1;
+      stages.forEach((s, i) => {
+        const r = s.getBoundingClientRect();
+        const vh = viewH;
+        const center = r.top + r.height / 2;
+        const score  = 1 - Math.min(1, Math.abs(center - vh / 2) / vh);
+        if (score > bestScore) { bestScore = score; activeIdx = i; }
+      });
+      railDots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
+    }
+
+    /* ---------- main per-frame update ---------- */
+    function update() {
+      updateGearCards();
+      updateStillsSpotlight();
+      updateRail();
+    }
+
+    /* ============================================================
+       BOOKING FORM  →  WhatsApp prefill
+       Replace `phone` with the real WhatsApp business number.
+       Format: country code + number, no `+`, no spaces.
+       ============================================================ */
+    const phone = '60197790361';
+
+    const form     = document.getElementById('booking-form');
+    const totalEl  = document.getElementById('bk-total');
+    const pkgInputs = form ? form.querySelectorAll('input[name="pkg"]') : [];
+
+    // Live-recompute the total from checked package prices.
+    // Returns { selected: [names], total: number } so submit can reuse.
+    function computePackages() {
+      const selected = [];
+      let total = 0;
+      pkgInputs.forEach((i) => {
+        if (i.checked) {
+          selected.push(i.value);
+          total += Number(i.dataset.price) || 0;
+        }
+      });
+      if (totalEl) totalEl.textContent = `RM${total}`;
+      return { selected, total };
+    }
+    pkgInputs.forEach((i) => i.addEventListener('change', computePackages));
+    computePackages();
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const date  = document.getElementById('bk-date').value;
+        const venue = document.getElementById('bk-venue').value;
+        const team  = document.getElementById('bk-team').value;
+        const { selected, total } = computePackages();
+        const pkg = selected.length ? selected.join(', ') : 'None';
+        const msg =
+          `Hi Sifu Tangkap Studios! I'd like to book a match.%0A%0A` +
+          `• Date: ${encodeURIComponent(date)}%0A` +
+          `• Venue: ${encodeURIComponent(venue)}%0A` +
+          `• Team / event: ${encodeURIComponent(team)}%0A` +
+          `• Package: ${encodeURIComponent(pkg)}%0A` +
+          `• Total: RM${total}`;
+        window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+      });
+    }
+
+    /* ---------- rAF-coalesced scroll listener ---------- */
+    let raf = 0;
+    function onScroll() {
+      if (raf) return;
+      raf = requestAnimationFrame(() => { raf = 0; update(); });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => { measureViewport(); onScroll(); });
+    update();
+  })();
+</script>
+
+<!-- ============================================================
+     TWEAKS PANEL (React)
+     Floating dev-only panel for toggling scroll mode + annotations.
+     The panel component lives in tweaks-panel.jsx (sibling file).
+     ============================================================ -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  // panel defaults — these are persisted/edited via the panel UI
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "scrollMode": "pinned",
+    "showAnnotations": true
+  }/*EDITMODE-END*/;
+
+  function Tweaks() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+    React.useEffect(() => {
+      // toggle smooth/pinned scroll mode globally on <body>
+      document.body.classList.toggle('mode-smooth', t.scrollMode === 'smooth');
+      document.body.classList.toggle('mode-pinned', t.scrollMode === 'pinned');
+
+      // toggle wireframe annotations via a runtime stylesheet
+      const style = document.getElementById('anno-style') || (() => {
+        const s = document.createElement('style');
+        s.id = 'anno-style';
+        document.head.appendChild(s);
+        return s;
+      })();
+      style.textContent = t.showAnnotations
+        ? ''
+        : `.anno-tag, .dslr-anno { display: none !important; }`;
+
+      // nudge a scroll update so layout-driven anims recompute
+      window.dispatchEvent(new Event('resize'));
+    }, [t.scrollMode, t.showAnnotations]);
+
+    return (
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="Scroll behavior">
+          <TweakRadio
+            label="Mode"
+            value={t.scrollMode}
+            onChange={(v) => setTweak('scrollMode', v)}
+            options={[
+              { value: 'pinned', label: 'Pinned' },
+              { value: 'smooth', label: 'Smooth' },
+            ]}
+          />
+          <div style={{ fontSize: 11, color: '#888', marginTop: 6, lineHeight: 1.4 }}>
+            <strong style={{color:'#bbb'}}>Pinned:</strong> page locks while each beat plays out, then releases.<br/>
+            <strong style={{color:'#bbb'}}>Smooth:</strong> beats scroll past naturally — no sticky.
+          </div>
+        </TweakSection>
+        <TweakSection title="Wireframe chrome">
+          <TweakToggle
+            label="Show annotations"
+            value={t.showAnnotations}
+            onChange={(v) => setTweak('showAnnotations', v)}
+          />
+        </TweakSection>
+      </TweaksPanel>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<Tweaks />);
+</script>
+
+</body>
+</html>
